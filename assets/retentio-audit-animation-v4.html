@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retentio — Audit Animation v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+}
+
+/* ── CONTAINER ── */
+.anim-wrap {
+  width: 100%;
+  max-width: 560px;
+  height: 420px;
+  background:
+    radial-gradient(ellipse at 15% 55%, rgba(74,77,184,0.32) 0%, transparent 52%),
+    radial-gradient(ellipse at 88% 18%, rgba(160,64,160,0.26) 0%, transparent 48%),
+    radial-gradient(ellipse at 55% 92%, rgba(45,46,110,0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 38% 8%,  rgba(232,64,122,0.14) 0%, transparent 44%),
+    radial-gradient(ellipse at 75% 65%, rgba(110,198,200,0.10) 0%, transparent 40%),
+    #E8E8F8;
+  border: 1.5px solid rgba(45,46,110,0.18);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(45,46,110,0.18);
+}
+
+/* ── SCENE — all hidden by default ── */
+.scene {
+  position: absolute;
+  inset: 0;
+  padding: 26px 30px;
+  /* CRITICAL: display none = zero overlap, zero ghosting */
+  display: none;
+  opacity: 1;
+  /* Scenes sit on top of mesh — transparent bg */
+  background: transparent;
+}
+
+/* Only one scene visible at a time */
+.scene.visible {
+  display: block;
+}
+
+/* Fade in only — no stacking transitions */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.scene.fade-in {
+  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── SHARED LABELS ── */
+.s-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A040A0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.s-eyebrow::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #A040A0;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.s-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1A1A2E;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.6);
+}
+
+/* ══════════════════════
+   SCENE 1 — ASSESS
+══════════════════════ */
+.metric-list { display: flex; flex-direction: column; gap: 10px; }
+
+.metric-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.m-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2D2E6E;
+  width: 136px;
+  flex-shrink: 0;
+}
+
+.m-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.m-bar {
+  height: 100%;
+  border-radius: 9999px;
+  width: 0%;
+  transition: width 1s cubic-bezier(0.22,1,0.36,1);
+}
+
+.m-val {
+  font-size: 11px;
+  font-weight: 700;
+  width: 38px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.scan-line {
+  position: absolute;
+  left: 30px; right: 30px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(45,46,110,0.3), transparent);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* ══════════════════════
+   SCENE 2 — PRIORITISE
+══════════════════════ */
+.bubble-stage {
+  position: relative;
+  height: 268px;
+}
+
+.bub {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.35;
+  padding: 8px;
+  border: 2px solid transparent;
+  transform: scale(0);
+  opacity: 0;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(0);    opacity: 0; }
+  60%  { transform: scale(1.12); opacity: 1; }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+
+.bub.gap      { background:rgba(255,251,235,0.92); border-color:#F59E0B; color:#92400E; }
+.bub.opp      { background:rgba(240,253,250,0.92); border-color:#6EC6C8; color:#0F766E; }
+.bub.priority { background:rgba(238,242,255,0.96); border-color:#2D2E6E; color:#2D2E6E;
+                box-shadow: 0 0 0 5px rgba(45,46,110,0.15); }
+
+@keyframes bubPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.3); }
+  50%     { box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+}
+.bub.gap.popped { animation: bubPulse 1.6s ease-in-out infinite; }
+
+@keyframes priPulse {
+  0%,100% { box-shadow: 0 0 0 5px rgba(45,46,110,0.12); }
+  50%     { box-shadow: 0 0 0 12px rgba(45,46,110,0); }
+}
+.bub.priority.popped { animation: priPulse 1.8s ease-in-out infinite; }
+
+.bub-legend {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex; gap: 16px;
+}
+.bl { display: flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600; }
+.bl-dot { width:7px; height:7px; border-radius:50%; display:inline-block; }
+
+/* ══════════════════════
+   SCENE 3 — READOUT
+══════════════════════ */
+.rs-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.rs-card {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,0.75);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.rs-num {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 4px;
+}
+
+.rs-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64648A;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.rs-card.g { border-color:#F59E0B; }
+.rs-card.g .rs-num { color:#F59E0B; }
+.rs-card.o { border-color:#6EC6C8; }
+.rs-card.o .rs-num { color:#6EC6C8; }
+.rs-card.p { border-color:#2D2E6E; }
+.rs-card.p .rs-num { color:#2D2E6E; }
+
+.readout-row {
+  background: rgba(238,242,255,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(199,210,254,0.7);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rr-tag { font-size:10px; font-weight:700; color:#A040A0;
+           letter-spacing:0.08em; text-transform:uppercase; margin-bottom:3px; }
+.rr-name { font-size:14px; font-weight:800; color:#1A1A2E; }
+
+.rr-check {
+  display:flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:700; color:#0F766E;
+}
+.rr-circle {
+  width:18px; height:18px; border-radius:50%;
+  background:#6EC6C8;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.ck-path {
+  stroke-dasharray:14;
+  stroke-dashoffset:14;
+  transition: stroke-dashoffset 0.5s ease 0.4s;
+}
+.ck-path.drawn { stroke-dashoffset:0; }
+
+/* ══════════════════════
+   SCENE 4 — PROGRAMME
+══════════════════════ */
+.prog-list { display:flex; flex-direction:column; gap:10px; }
+
+.prog-row {
+  display:flex; align-items:center; gap:12px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border:1.5px solid rgba(255,255,255,0.75);
+  border-radius:12px;
+  padding:12px 14px;
+  opacity:0;
+  transform:translateX(-16px);
+}
+/* Animate in via JS adding class */
+@keyframes slideIn {
+  from { opacity:0; transform:translateX(-16px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+.prog-row.show {
+  animation: slideIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+}
+.prog-row.hi { border-color:#2D2E6E; background:#EEF2FF; }
+
+.pr-num {
+  width:28px; height:28px; border-radius:50%;
+  background:#E8E8F4; color:#64648A;
+  font-size:11px; font-weight:800;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.prog-row.hi .pr-num { background:#2D2E6E; color:white; }
+
+.pr-body { flex:1; }
+.pr-name { font-size:13px; font-weight:700; color:#1A1A2E; margin-bottom:2px; }
+.pr-meta { font-size:11px; color:#94A3B8; }
+
+.pr-tag {
+  font-size:10px; font-weight:700;
+  padding:3px 9px; border-radius:9999px;
+  white-space:nowrap; flex-shrink:0;
+}
+
+.prog-note {
+  background:rgba(255,255,255,0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border:1.5px solid rgba(255,255,255,0.65);
+  border-radius:10px;
+  padding:10px 14px;
+  font-size:11px;
+  color:#64648A;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  opacity:0;
+}
+@keyframes fadeNote {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+.prog-note.show { animation: fadeNote 0.4s ease 0.2s forwards; }
+
+/* ══════════════════════
+   SCENE 5 — CTA
+══════════════════════ */
+.cta-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  height:100%; text-align:center; gap:0;
+  padding: 0 20px;
+}
+
+.cta-logo-box {
+  width:60px; height:60px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1.5px solid rgba(255,255,255,0.7);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px;
+  box-shadow:0 4px 20px rgba(45,46,110,0.10);
+  overflow:hidden;
+}
+
+.cta-logo-box img { width:46px; height:auto; object-fit:contain; }
+
+.cta-h {
+  font-size:19px; font-weight:800;
+  color:#1A1A2E; letter-spacing:-0.03em;
+  margin-bottom:8px; line-height:1.2;
+}
+
+.cta-p {
+  font-size:13px; color:#64648A;
+  line-height:1.65; max-width:290px;
+  margin-bottom:22px;
+}
+
+.cta-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px; font-weight:700;
+  color:white; background:#2D2E6E;
+  padding:12px 28px; border-radius:9999px;
+  border:none; cursor:pointer;
+  text-decoration:none; letter-spacing:0.01em;
+}
+
+@keyframes btnGlow {
+  0%   { box-shadow:0 0 0 0 rgba(45,46,110,0.45); }
+  70%  { box-shadow:0 0 0 14px rgba(45,46,110,0); }
+  100% { box-shadow:0 0 0 0 rgba(45,46,110,0); }
+}
+.cta-btn.glow { animation: btnGlow 1.6s ease; }
+
+/* ── CURSOR ── */
+.cur {
+  position:absolute;
+  width:18px; height:18px;
+  pointer-events:none;
+  z-index:20;
+  opacity:0;
+  /* smooth movement via JS */
+  transition: left 0.42s cubic-bezier(0.22,1,0.36,1),
+              top  0.42s cubic-bezier(0.22,1,0.36,1),
+              opacity 0.25s ease;
+}
+
+/* ── PROGRESS BAR ── */
+.pbar {
+  position:absolute;
+  bottom:0; left:0;
+  height:3px; width:0%;
+  background:linear-gradient(90deg,#2D2E6E,#A040A0,#E8735A);
+  border-radius:0 0 0 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="anim-wrap" id="aw">
+
+  <!-- Cursor -->
+  <div class="cur" id="cur">
+    <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2L8 16L10.5 10.5L16 8L2 2Z" fill="#2D2E6E" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- ════ SCENE 1 ════ -->
+  <div class="scene" id="sc1">
+    <div class="s-eyebrow">Customer Growth Audit · Step 1</div>
+    <div class="s-title">Assessing your current state.</div>
+    <div class="metric-list">
+      <div class="metric-row">
+        <span class="m-label">Current Customers</span>
+        <div class="m-track"><div class="m-bar" style="background:#2D2E6E" data-w="68"></div></div>
+        <span class="m-val" style="color:#2D2E6E">142</span>
+      </div>
+      <div class="metric-row">
+        <span class="m-label">Current Revenue</span>
+        <div class="m-track"><div class="m-bar" style="background:#4A4DB8" data-w="52"></div></div>
+        <span class="m-val" style="color:#4A4DB8">₹48L</span>
+      </div>
+      <div class="metric-row">
+        <span class="m-label">Revenue Goal</span>
+        <div class="m-track"><div class="m-bar" style="background:#A040A0" data-w="88"></div></div>
+        <span class="m-val" style="color:#A040A0">₹2Cr</span>
+      </div>
+      <div class="metric-row">
+        <span class="m-label">NPS Score</span>
+        <div class="m-track"><div class="m-bar" style="background:#F59E0B" data-w="36"></div></div>
+        <span class="m-val" style="color:#F59E0B">+28</span>
+      </div>
+      <div class="metric-row">
+        <span class="m-label">CSAT Score</span>
+        <div class="m-track"><div class="m-bar" style="background:#E8605A" data-w="42"></div></div>
+        <span class="m-val" style="color:#E8605A">3.8</span>
+      </div>
+      <div class="metric-row">
+        <span class="m-label">Monthly MRR</span>
+        <div class="m-track"><div class="m-bar" style="background:#6EC6C8" data-w="58"></div></div>
+        <span class="m-val" style="color:#6EC6C8">₹4L</span>
+      </div>
+    </div>
+    <div class="scan-line" id="scanLine" style="top:80px"></div>
+  </div>
+
+  <!-- ════ SCENE 2 ════ -->
+  <div class="scene" id="sc2">
+    <div class="s-eyebrow">Gaps & Opportunities · Step 2</div>
+    <div class="s-title">Identifying what matters most.</div>
+    <div class="bubble-stage">
+      <div class="bub gap"      id="b1" style="width:78px;height:78px;left:18px;top:16px">No<br>Advocates</div>
+      <div class="bub gap"      id="b2" style="width:70px;height:70px;left:108px;top:54px">Weak<br>Proof</div>
+      <div class="bub gap"      id="b3" style="width:66px;height:66px;left:192px;top:14px">Low<br>NPS</div>
+      <div class="bub gap"      id="b4" style="width:62px;height:62px;left:270px;top:56px">No<br>Refs</div>
+      <div class="bub priority" id="b5" style="width:100px;height:100px;left:354px;top:8px;font-size:11px">Champion<br>Programme</div>
+      <div class="bub opp"      id="b6" style="width:74px;height:74px;left:362px;top:124px">Case<br>Studies</div>
+      <div class="bub-legend">
+        <span class="bl"><span class="bl-dot" style="background:#F59E0B"></span><span style="color:#92400E">4 gaps found</span></span>
+        <span class="bl"><span class="bl-dot" style="background:#6EC6C8"></span><span style="color:#0F766E">2 opportunities</span></span>
+        <span class="bl"><span class="bl-dot" style="background:#2D2E6E"></span><span style="color:#2D2E6E">1 priority</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ SCENE 3 ════ -->
+  <div class="scene" id="sc3">
+    <div class="s-eyebrow">Executive Readout · Step 3</div>
+    <div class="s-title">Clear direction. Ready to act.</div>
+    <div class="rs-grid">
+      <div class="rs-card g"><div class="rs-num" id="cn1">0</div><div class="rs-lbl">Gaps Found</div></div>
+      <div class="rs-card o"><div class="rs-num" id="cn2">0</div><div class="rs-lbl">Opportunities</div></div>
+      <div class="rs-card p"><div class="rs-num" id="cn3">0</div><div class="rs-lbl">Priority</div></div>
+    </div>
+    <div class="readout-row">
+      <div>
+        <div class="rr-tag">Top priority identified</div>
+        <div class="rr-name">Champion Programme</div>
+      </div>
+      <div class="rr-check">
+        <div class="rr-circle">
+          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+            <path id="ckp" class="ck-path" d="M1 4L3.5 6.5L9 1"
+              stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        Readout ready
+      </div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:#94A3B8;font-style:italic;text-align:center">
+      Executive readout session scheduled · Programme direction confirmed
+    </div>
+  </div>
+
+  <!-- ════ SCENE 4 ════ -->
+  <div class="scene" id="sc4">
+    <div class="s-eyebrow">Your Programme · Next 90 Days</div>
+    <div class="s-title">What gets built. When. What it drives.</div>
+    <div class="prog-list">
+      <div class="prog-row hi" id="p1">
+        <div class="pr-num">01</div>
+        <div class="pr-body">
+          <div class="pr-name">Champion Programme</div>
+          <div class="pr-meta">Weeks 1–4 · First reference calls in 30 days</div>
+        </div>
+        <span class="pr-tag" style="background:#EEF2FF;color:#2D2E6E">↑ Revenue</span>
+      </div>
+      <div class="prog-row" id="p2">
+        <div class="pr-num">02</div>
+        <div class="pr-body">
+          <div class="pr-name">Case Study Engine</div>
+          <div class="pr-meta">Weeks 3–6 · First story published in 30 days</div>
+        </div>
+        <span class="pr-tag" style="background:#FDF4FF;color:#A040A0">↑ Proof</span>
+      </div>
+      <div class="prog-row" id="p3">
+        <div class="pr-num">03</div>
+        <div class="pr-body">
+          <div class="pr-name">Engagement Campaigns</div>
+          <div class="pr-meta">Weeks 4–8 · NPS lift + expansion signals</div>
+        </div>
+        <span class="pr-tag" style="background:#F0FDFA;color:#0F766E">↑ Engagement</span>
+      </div>
+    </div>
+    <div class="prog-note" id="progNote">
+      <span style="width:6px;height:6px;border-radius:50%;background:#6EC6C8;display:inline-block;flex-shrink:0"></span>
+      Delivered in 30-day cycles · All programmes built and run by Retentio
+    </div>
+  </div>
+
+  <!-- ════ SCENE 5 ════ -->
+  <div class="scene" id="sc5">
+    <div class="cta-wrap">
+      <div class="cta-logo-box">
+        <img src="retentio-logo.png" alt="Retentio"
+          onerror="this.outerHTML='<span style=\'font-size:18px;font-weight:800;font-style:italic;background:linear-gradient(135deg,#2D2E6E,#A040A0);-webkit-background-clip:text;-webkit-text-fill-color:transparent\'>R</span>'">
+      </div>
+      <div class="cta-h">Find where your customer growth can go next.</div>
+      <div class="cta-p">A focused audit of your customers, advocacy, proof, lifecycle and engagement opportunities.</div>
+      <a href="contact.html" class="cta-btn" id="ctaBtn">Talk to us →</a>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="pbar" id="pbar"></div>
+
+</div>
+
+<script>
+'use strict';
+
+/* ── TIMING ── */
+const DURATIONS = [4500, 4000, 4000, 4500, 3500];
+const TOTAL = DURATIONS.reduce((a,b)=>a+b,0);
+const FADE = 480;
+
+let running = false;
+let progRAF = null;
+let progStart = 0;
+
+/* ── UTILS ── */
+const $ = id => document.getElementById(id);
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+/* ── PROGRESS BAR ── */
+function startProg() {
+  const bar = $('pbar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  progStart = performance.now();
+  cancelAnimationFrame(progRAF);
+  function tick(now) {
+    const pct = Math.min(((now - progStart) / TOTAL) * 100, 100);
+    bar.style.width = pct + '%';
+    if (pct < 100) progRAF = requestAnimationFrame(tick);
+  }
+  progRAF = requestAnimationFrame(tick);
+}
+
+/* ── CURSOR ── */
+const curEl = $('cur');
+function hideCur() { curEl.style.opacity = '0'; }
+async function moveCur(x, y) {
+  curEl.style.opacity = '1';
+  curEl.style.left = x + 'px';
+  curEl.style.top  = y + 'px';
+  await wait(460);
+}
+
+/* ── SCENE SWITCH — clean, no overlap ── */
+function showOnly(id) {
+  /* Hide ALL scenes instantly — display:none removes from paint */
+  document.querySelectorAll('.scene').forEach(s => {
+    s.classList.remove('visible','fade-in');
+    s.style.display = 'none';
+  });
+  /* Show target */
+  const el = $(id);
+  el.style.display = 'block';
+  /* Force reflow so animation triggers */
+  void el.offsetWidth;
+  el.classList.add('visible','fade-in');
+}
+
+/* ── SCENE 1 — ASSESS ── */
+async function runScene1() {
+  hideCur();
+  showOnly('sc1');
+
+  /* Reset bars */
+  document.querySelectorAll('#sc1 .m-bar').forEach(b => {
+    b.style.transition = 'none';
+    b.style.width = '0%';
+  });
+
+  /* Animate scan line */
+  const scan = $('scanLine');
+  scan.style.transition = 'none';
+  scan.style.top = '76px';
+  await wait(300);
+  scan.style.transition = 'top 3.6s linear';
+  scan.style.top = '360px';
+
+  /* Stagger bars */
+  const bars = document.querySelectorAll('#sc1 .m-bar');
+  bars.forEach((b, i) => {
+    setTimeout(() => {
+      b.style.transition = 'width 1s cubic-bezier(0.22,1,0.36,1)';
+      b.style.width = b.dataset.w + '%';
+    }, 250 + i * 290);
+  });
+
+  /* Cursor sweeps rows */
+  await wait(600);
+  const rowY = [148,178,208,238,268,298];
+  for (const y of rowY) {
+    await moveCur(160, y);
+  }
+  hideCur();
+}
+
+/* ── SCENE 2 — PRIORITISE ── */
+async function runScene2() {
+  hideCur();
+  showOnly('sc2');
+
+  /* Reset bubbles */
+  ['b1','b2','b3','b4','b5','b6'].forEach(id => {
+    const b = $(id);
+    b.style.animation = 'none';
+    b.style.transform = 'scale(0)';
+    b.style.opacity = '0';
+    b.classList.remove('popped');
+  });
+
+  await wait(200);
+
+  /* Pop in sequence */
+  const seq = [
+    { id:'b1', delay:150 },
+    { id:'b2', delay:320 },
+    { id:'b3', delay:490 },
+    { id:'b4', delay:650 },
+    { id:'b5', delay:850 },
+    { id:'b6', delay:1050 },
+  ];
+
+  seq.forEach(({ id, delay }) => {
+    setTimeout(() => {
+      const b = $(id);
+      b.style.animation = 'popIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards';
+      setTimeout(() => {
+        b.classList.add('popped');
+      }, delay + 600);
+    }, delay);
+  });
+
+  /* Cursor to priority bubble */
+  await wait(1500);
+  await moveCur(395, 55);
+  await wait(500);
+  await moveCur(405, 65);
+  await wait(400);
+  hideCur();
+}
+
+/* ── SCENE 3 — READOUT ── */
+async function runScene3() {
+  hideCur();
+  showOnly('sc3');
+
+  /* Reset counters */
+  $('cn1').textContent = '0';
+  $('cn2').textContent = '0';
+  $('cn3').textContent = '0';
+  $('ckp').classList.remove('drawn');
+
+  await wait(400);
+
+  /* Count up */
+  async function countTo(elId, target, totalMs) {
+    const el = $(elId);
+    const interval = totalMs / target;
+    for (let i = 1; i <= target; i++) {
+      await wait(interval);
+      el.textContent = i;
+    }
+  }
+
+  countTo('cn1', 4, 700);
+  await wait(200);
+  countTo('cn2', 2, 500);
+  await wait(200);
+  countTo('cn3', 1, 300);
+
+  /* Draw check */
+  await wait(900);
+  $('ckp').classList.add('drawn');
+}
+
+/* ── SCENE 4 — PROGRAMME ── */
+async function runScene4() {
+  hideCur();
+  showOnly('sc4');
+
+  /* Reset rows */
+  ['p1','p2','p3'].forEach(id => {
+    const el = $(id);
+    el.classList.remove('show');
+    el.style.animation = 'none';
+    el.style.opacity = '0';
+  });
+  const note = $('progNote');
+  note.classList.remove('show');
+  note.style.animation = 'none';
+  note.style.opacity = '0';
+
+  await wait(300);
+
+  /* Slide in staggered */
+  ['p1','p2','p3'].forEach((id, i) => {
+    setTimeout(() => {
+      const el = $(id);
+      el.style.animation = '';
+      void el.offsetWidth;
+      el.classList.add('show');
+    }, i * 480);
+  });
+
+  await wait(1700);
+  note.style.animation = '';
+  void note.offsetWidth;
+  note.classList.add('show');
+}
+
+/* ── SCENE 5 — CTA ── */
+async function runScene5() {
+  hideCur();
+  showOnly('sc5');
+  await wait(1200);
+  const btn = $('ctaBtn');
+  btn.classList.add('glow');
+  await wait(1700);
+  btn.classList.remove('glow');
+}
+
+/* ── MAIN LOOP ── */
+async function loop() {
+  running = true;
+  startProg();
+
+  const scenes = [
+    { fn: runScene1, dur: DURATIONS[0] },
+    { fn: runScene2, dur: DURATIONS[1] },
+    { fn: runScene3, dur: DURATIONS[2] },
+    { fn: runScene4, dur: DURATIONS[3] },
+    { fn: runScene5, dur: DURATIONS[4] },
+  ];
+
+  for (const { fn, dur } of scenes) {
+    await fn();
+    await wait(dur - FADE);
+    /* Fade out current scene before switch */
+    const cur = document.querySelector('.scene.visible');
+    if (cur) {
+      cur.style.transition = 'opacity 0.4s ease';
+      cur.style.opacity = '0';
+      await wait(420);
+      cur.style.transition = '';
+      cur.style.opacity = '';
+    }
+  }
+
+  /* Seamless loop */
+  await wait(200);
+  loop();
+}
+
+loop();
+</script>
+</body>
+</html>

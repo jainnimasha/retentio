@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retentio — Post-Sale Growth Agency for B2B SaaS</title>
+  <meta name="description" content="Retentio builds the customer advocacy, engagement and post-sale programmes that turn existing customer relationships into commercial assets. Post-sale growth for B2B SaaS.">
+  <meta property="og:title" content="Retentio — Post-Sale Growth Agency for B2B SaaS">
+  <meta property="og:description" content="Turn your customer relationships into growth. Customer advocacy, community, lifecycle marketing and impact measurement for B2B SaaS.">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:url" content="https://retentio.in">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ── PAGE-SPECIFIC STYLES ── */
+
+    /* Hero */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background-color: #FAFAFA;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0; right: 0;
+      width: 65%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
+      z-index: 0;
+    }
+
+    .hero-fade {
+      position: absolute;
+      top: 0; left: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        #FAFAFA 0%,
+        #FAFAFA 55%,
+        rgba(250,250,250,0.85) 75%,
+        rgba(250,250,250,0) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content-wrap {
+      position: relative;
+      z-index: 2;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      width: 100%;
+    }
+
+    .hero-text { max-width: 520px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2D2E6E;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #E8E8F4;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 28px;
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #A040A0;
+      display: inline-block;
+    }
+
+    .hero-h1 {
+      font-size: clamp(38px, 4.8vw, 64px);
+      font-weight: 800;
+      color: #1A1A2E;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    .hero-h1 em {
+      color: #A040A0;
+      font-style: italic;
+    }
+
+    .hero-lead {
+      font-size: 15px;
+      font-weight: 600;
+      color: #64648A;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero-body {
+      font-size: 17px;
+      color: #64648A;
+      line-height: 1.72;
+      max-width: 460px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2D2E6E;
+      margin-bottom: 36px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      background: #2D2E6E;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      border: 2px solid #2D2E6E;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-hero-primary:hover {
+      background: #4A4DB8;
+      border-color: #4A4DB8;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(45,46,110,0.25);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #2D2E6E;
+      background: transparent;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      border: 2px solid #2D2E6E;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(45,46,110,0.06);
+      transform: translateY(-1px);
+    }
+
+    /* Floating stat cards */
+    .float-card {
+      position: absolute;
+      background: white;
+      border: 1px solid #E8E8F4;
+      border-radius: 14px;
+      padding: 14px 20px;
+      box-shadow: 0 8px 32px rgba(45,46,110,0.12);
+      z-index: 3;
+      min-width: 155px;
+    }
+
+    .float-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .float-card-number {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+    }
+
+    .float-card-sub {
+      font-size: 11px;
+      color: #64648A;
+    }
+
+    @keyframes floatCard {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .float-1 {
+      top: 90px; right: 340px;
+      animation: floatCard 3.5s ease-in-out infinite;
+    }
+
+    .float-2 {
+      top: 50%;
+      transform: translateY(-50%);
+      right: 280px;
+      animation: floatCard 3.5s ease-in-out infinite;
+      animation-delay: 1.2s;
+    }
+
+    .float-3 {
+      bottom: 90px; right: 320px;
+      animation: floatCard 3.5s ease-in-out infinite;
+      animation-delay: 2.2s;
+    }
+
+    /* Section styles */
+    .section-pad { padding: 96px 0; }
+    .section-pad-sm { padding: 64px 0; }
+    .inner { max-width: 1140px; margin: 0 auto; padding: 0 40px; }
+
+    /* Proof strip */
+    .proof-strip {
+      padding: 28px 0;
+      border-top: 1px solid #E8E8F4;
+      border-bottom: 1px solid #E8E8F4;
+      background: white;
+    }
+
+    .proof-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .proof-item {
+      font-size: 12px;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .proof-sep {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #E8E8F4;
+      display: inline-block;
+    }
+
+    /* Positioning section */
+    .positioning-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .positioning-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #2D2E6E;
+      background: #F5F5FA;
+      border: 1px solid #E8E8F4;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      margin-bottom: 20px;
+    }
+
+    .positioning-h2 {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 800;
+      color: #1A1A2E;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .positioning-body {
+      font-size: 17px;
+      color: #64648A;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    /* Growth narrative strip */
+    .growth-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: #F5F5FA;
+      border: 1px solid #E8E8F4;
+      border-radius: 20px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .growth-step {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64648A;
+      padding: 6px 14px;
+      background: white;
+      border: 1px solid #E8E8F4;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .growth-step.active {
+      background: #2D2E6E;
+      color: white;
+      border-color: #2D2E6E;
+    }
+
+    .growth-arrow {
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-tile {
+      background: white;
+      border: 1px solid #E8E8F4;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-tile-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #2D2E6E;
+      line-height: 1;
+      letter-spacing: -1.5px;
+      margin-bottom: 6px;
+    }
+
+    .stat-tile-lbl {
+      font-size: 12px;
+      color: #64648A;
+      line-height: 1.5;
+    }
+
+    /* Services section */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      background: white;
+      border: 1px solid #E8E8F4;
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .service-card:hover {
+      border-color: #2D2E6E;
+      box-shadow: 0 8px 32px rgba(45,46,110,0.10);
+      transform: translateY(-3px);
+    }
+
+    .service-card.wide { grid-column: span 2; }
+
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .service-type {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .service-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #1A1A2E;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .service-body {
+      font-size: 14px;
+      color: #64648A;
+      line-height: 1.65;
+    }
+
+    .service-link {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #2D2E6E;
+      margin-top: 16px;
+    }
+
+    /* Audit section */
+    .audit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .audit-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .audit-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: white;
+      border: 1px solid #E8E8F4;
+      border-radius: 14px;
+      padding: 20px 24px;
+      transition: border-color 0.2s;
+    }
+
+    .audit-step:hover { border-color: #2D2E6E; }
+
+    .audit-step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #2D2E6E;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .audit-step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A1A2E;
+      margin-bottom: 4px;
+    }
+
+    .audit-step-body {
+      font-size: 13px;
+      color: #64648A;
+      line-height: 1.6;
+    }
+
+    .audit-card {
+      background: #F5F5FA;
+      border: 1px solid #E8E8F4;
+      border-radius: 20px;
+      padding: 36px;
+    }
+
+    .audit-card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #A040A0;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .audit-card-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1A1A2E;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .audit-card-body {
+      font-size: 15px;
+      color: #64648A;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .audit-deliverables {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .audit-del {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #64648A;
+    }
+
+    .audit-del-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #6EC6C8;
+      flex-shrink: 0;
+    }
+
+    /* Dark section */
+    .dark-section {
+      background: #1A1A2E;
+      padding: 96px 0;
+      text-align: center;
+    }
+
+    /* Prompt section */
+    .prompt-card {
+      background: #2D2E6E;
+      border-radius: 24px;
+      padding: 56px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .prompt-category {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+    }
+
+    .prompt-cat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6EC6C8;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .prompt-cat-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Bottom CTA */
+    .bottom-cta {
+      padding: 96px 0;
+      text-align: center;
+      background: #F5F5FA;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #1A1A2E;
+      padding: 64px 0 28px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 28px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .footer-logo-icon {
+      width: 28px; height: 28px;
+      border: 2px solid #4A4DB8;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #6EC6C8;
+    }
+
+    .footer-logo-text {
+      font-size: 17px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .footer-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.65;
+      max-width: 220px;
+      margin-bottom: 16px;
+    }
+
+    .footer-email {
+      font-size: 13px;
+      color: #6EC6C8;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .footer-email:hover { color: white; }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-social a:hover { color: white; }
+
+    .footer-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: white; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* Mobile nav */
+    .nav-mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .nav-mobile-toggle span {
+      width: 22px; height: 2px;
+      background: #2D2E6E;
+      border-radius: 9999px;
+      display: block;
+      transition: all 0.2s;
+    }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: white;
+      border-bottom: 1px solid #E8E8F4;
+      padding: 16px 24px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 99;
+      box-shadow: 0 8px 32px rgba(45,46,110,0.12);
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A2E;
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-mobile a:hover { background: #F5F5FA; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .positioning-grid,
+      .audit-grid { grid-template-columns: 1fr; gap: 48px; }
+      .prompt-card { grid-template-columns: 1fr; gap: 32px; padding: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card.wide { grid-column: span 2; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section { min-height: auto; padding: 60px 0; }
+      .hero-bg { display: none; }
+      .hero-fade { display: none; }
+      .hero-content-wrap { padding: 60px 20px; }
+      .float-card { display: none; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card.wide { grid-column: span 1; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .inner { padding: 0 20px; }
+      .section-pad { padding: 64px 0; }
+      .prompt-card { padding: 32px 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .growth-strip { flex-wrap: wrap; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">R</div>
+      <span class="nav-logo-text">retentio</span>
+    </a>
+    <div class="nav-links">
+      <a href="services.html">Services</a>
+      <a href="resources.html">Resources</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="contact.html" class="btn-nav">Talk to us →</a>
+      <button class="nav-mobile-toggle" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="nav-mobile" id="mobileNav">
+  <a href="services.html">Services</a>
+  <a href="resources.html">Resources</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="btn-nav" style="margin-top:8px;text-align:center">Talk to us →</a>
+</div>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="hero-section">
+
+  <!-- Background image — right side -->
+  <img
+    src="assets/Hero_Banner_White.png"
+    alt=""
+    class="hero-bg"
+    aria-hidden="true"
+  >
+
+  <!-- Left fade overlay -->
+  <div class="hero-fade"></div>
+
+  <!-- Text content -->
+  <div class="hero-content-wrap">
+    <div class="hero-text">
+
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Post-sale growth · B2B SaaS
+      </div>
+
+      <h1 class="hero-h1">
+        Retention is your<br>
+        <em>post-sale</em> growth engine.
+      </h1>
+
+      <p class="hero-lead">Growth doesn't stop at acquisition.</p>
+      <p class="hero-body">
+        It continues through adoption, retention and advocacy.
+        Your next stage of growth may already be sitting inside
+        the relationships you've built.
+      </p>
+      <p class="hero-tagline">Turn those relationships into growth.</p>
+
+      <div class="hero-ctas">
+        <a href="contact.html" class="btn-hero-primary">Talk to us →</a>
+        <a href="services.html" class="btn-hero-secondary">Explore services</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating stat cards -->
+  <div class="float-card float-1">
+    <div class="float-card-label">Community built</div>
+    <div class="float-card-number" style="color:#2D2E6E">80K</div>
+    <div class="float-card-sub">visitors/month from zero</div>
+  </div>
+
+  <div class="float-card float-2">
+    <div class="float-card-label">Advocates engaged</div>
+    <div class="float-card-number" style="color:#A040A0">250+</div>
+    <div class="float-card-sub">across champion programmes</div>
+  </div>
+
+  <div class="float-card float-3">
+    <div class="float-card-label">Case studies</div>
+    <div class="float-card-number" style="color:#6EC6C8">20+</div>
+    <div class="float-card-sub">produced and deployed</div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════
+     PROOF STRIP
+════════════════════════════════════════════ -->
+<div class="proof-strip">
+  <div class="inner">
+    <div class="proof-inner">
+      <span class="proof-item">Adobe Systems</span>
+      <span class="proof-sep"></span>
+      <span class="proof-item">GlobalLogic</span>
+      <span class="proof-sep"></span>
+      <span class="proof-item">LogRhythm</span>
+      <span class="proof-sep"></span>
+      <span class="proof-item">MDI Gurgaon</span>
+      <span class="proof-sep"></span>
+      <span class="proof-item">12+ Years Enterprise CMA</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     OPPORTUNITY + RETAIN™ FRAMEWORK
+════════════════════════════════════════════ -->
+<section id="retain-section" style="background:#FAFAFA;padding:96px 0">
+  <div class="inner">
+    <div style="display:flex;flex-direction:column;gap:0">
+
+      <!-- ── TOP — Strategic narrative ── -->
+      <div style="text-align:center;max-width:680px;margin:0 auto 64px">
+        <div class="positioning-eyebrow" style="margin-bottom:20px;justify-content:center">
+          <span class="hero-eyebrow-dot"></span>
+          The opportunity
+        </div>
+        <h2 style="font-size:clamp(28px,3.5vw,46px);font-weight:800;color:#1A1A2E;letter-spacing:-0.03em;line-height:1.15;margin-bottom:20px">
+          You've already acquired the customers.<br>
+          Now turn the relationship into growth.
+        </h2>
+        <p style="font-size:17px;color:#64648A;line-height:1.75;margin-bottom:40px;max-width:520px;margin-left:auto;margin-right:auto">
+          Customer marketing, community, advocacy, events and customer stories all play a role — but the real value comes when they work together.
+        </p>
+
+        <!-- Meet RETAIN™ -->
+        <div style="display:inline-block;text-align:left;border-left:3px solid #2D2E6E;padding-left:20px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A040A0;margin-bottom:6px">Meet RETAIN™</div>
+          <p style="font-size:15px;color:#1A1A2E;font-weight:600;line-height:1.55;margin-bottom:0">
+            A connected framework for driving adoption, retention and advocacy across the customer journey.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── BOTTOM — RETAIN™ Visual ── -->
+      <div style="position:relative">
+
+        <!-- RETAIN tiles grid — 6 columns full width -->
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;position:relative;z-index:1;margin-bottom:16px" role="group" aria-label="RETAIN framework — click a pillar to explore">
+
+          <!-- R -->
+          <button
+            class="retain-tile"
+            data-letter="R"
+            data-gradient="linear-gradient(135deg,#2D2E6E,#4A4DB8)"
+            aria-label="R — Relationships. Click to explore related programmes."
+            onclick="activateRetain('R')"
+          >
+            <div class="retain-tile-letter">R</div>
+            <div class="retain-tile-word">Relationships</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+          <!-- E -->
+          <button
+            class="retain-tile"
+            data-letter="E"
+            data-gradient="linear-gradient(135deg,#4A4DB8,#6B4FBB)"
+            aria-label="E — Engagement. Click to explore related programmes."
+            onclick="activateRetain('E')"
+          >
+            <div class="retain-tile-letter">E</div>
+            <div class="retain-tile-word">Engagement</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+          <!-- T -->
+          <button
+            class="retain-tile"
+            data-letter="T"
+            data-gradient="linear-gradient(135deg,#6B4FBB,#A040A0)"
+            aria-label="T — Trust. Click to explore related programmes."
+            onclick="activateRetain('T')"
+          >
+            <div class="retain-tile-letter">T</div>
+            <div class="retain-tile-word">Trust</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+          <!-- A -->
+          <button
+            class="retain-tile"
+            data-letter="A"
+            data-gradient="linear-gradient(135deg,#A040A0,#C8407A)"
+            aria-label="A — Advocacy. Click to explore related programmes."
+            onclick="activateRetain('A')"
+          >
+            <div class="retain-tile-letter">A</div>
+            <div class="retain-tile-word">Advocacy</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+          <!-- I -->
+          <button
+            class="retain-tile"
+            data-letter="I"
+            data-gradient="linear-gradient(135deg,#C8407A,#E8605A)"
+            aria-label="I — Insights. Click to explore related programmes."
+            onclick="activateRetain('I')"
+          >
+            <div class="retain-tile-letter">I</div>
+            <div class="retain-tile-word">Insights</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+          <!-- N -->
+          <button
+            class="retain-tile"
+            data-letter="N"
+            data-gradient="linear-gradient(135deg,#E8605A,#E8735A)"
+            aria-label="N — Nurture. Click to explore related programmes."
+            onclick="activateRetain('N')"
+          >
+            <div class="retain-tile-letter">N</div>
+            <div class="retain-tile-word">Nurture</div>
+            <div class="retain-tile-glow"></div>
+          </button>
+
+        </div>
+
+        <!-- Microcopy -->
+        <p id="retain-microcopy" style="text-align:center;font-size:12px;color:#94A3B8;font-style:italic;margin-top:16px;transition:opacity 0.3s">
+          Click a pillar to explore →
+        </p>
+
+        <!-- Active state label -->
+        <div id="retain-active-bar" style="text-align:center;margin-top:8px;min-height:28px;transition:all 0.3s">
+          <span id="retain-active-text" style="display:inline-block;font-size:13px;font-weight:700;color:#2D2E6E;background:#EEF2FF;border:1px solid #C7D2FE;padding:5px 18px;border-radius:9999px;opacity:0;transform:translateY(6px);transition:all 0.3s ease"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Solution tiles — reveal below on activation ── -->
+    <div id="retain-solutions" style="
+      margin-top:56px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      max-height:0;
+      overflow:hidden;
+      opacity:0;
+      transition:max-height 0.5s ease, opacity 0.4s ease;
+    " aria-live="polite">
+
+      <!-- Customer Stories -->
+      <div class="rs-tile" data-maps="T,A">
+        <div class="rs-tile-name">Customer Stories</div>
+        <div class="rs-tile-body">Interviews, writing, approval and publishing — proof assets that sales actually uses.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="T">Trust</span>
+          <span class="rs-pill" data-letter="A">Advocacy</span>
+        </div>
+      </div>
+
+      <!-- Webinars -->
+      <div class="rs-tile" data-maps="E,T,A,N">
+        <div class="rs-tile-name">Webinars</div>
+        <div class="rs-tile-body">Topic strategy, speaker management, facilitation and post-event follow-up.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="E">Engagement</span>
+          <span class="rs-pill" data-letter="T">Trust</span>
+          <span class="rs-pill" data-letter="A">Advocacy</span>
+          <span class="rs-pill" data-letter="N">Nurture</span>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="rs-tile" data-maps="R,E,I,N">
+        <div class="rs-tile-name">Community</div>
+        <div class="rs-tile-body">Platform guidance, content, moderation and activation — you own it, we run it.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="R">Relationships</span>
+          <span class="rs-pill" data-letter="E">Engagement</span>
+          <span class="rs-pill" data-letter="I">Insights</span>
+          <span class="rs-pill" data-letter="N">Nurture</span>
+        </div>
+      </div>
+
+      <!-- Customer Advocacy -->
+      <div class="rs-tile" data-maps="R,A,I,N">
+        <div class="rs-tile-name">Customer Advocacy</div>
+        <div class="rs-tile-body">Champion identification, references, advocate recruitment and peer selling.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="R">Relationships</span>
+          <span class="rs-pill" data-letter="A">Advocacy</span>
+          <span class="rs-pill" data-letter="I">Insights</span>
+          <span class="rs-pill" data-letter="N">Nurture</span>
+        </div>
+      </div>
+
+      <!-- Content Marketing -->
+      <div class="rs-tile" data-maps="T,E,N">
+        <div class="rs-tile-name">Content Marketing</div>
+        <div class="rs-tile-body">Practitioner content, editorial calendar and thought leadership.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="T">Trust</span>
+          <span class="rs-pill" data-letter="E">Engagement</span>
+          <span class="rs-pill" data-letter="N">Nurture</span>
+        </div>
+      </div>
+
+      <!-- Customer Marketing -->
+      <div class="rs-tile" data-maps="E,I,N">
+        <div class="rs-tile-name">Customer Marketing</div>
+        <div class="rs-tile-body">Lifecycle campaigns, onboarding, adoption, renewal and expansion.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="E">Engagement</span>
+          <span class="rs-pill" data-letter="I">Insights</span>
+          <span class="rs-pill" data-letter="N">Nurture</span>
+        </div>
+      </div>
+
+      <!-- Events & User Groups -->
+      <div class="rs-tile" data-maps="R,E,A">
+        <div class="rs-tile-name">Events & User Groups</div>
+        <div class="rs-tile-body">Customer events and user groups that deepen relationships and surface advocates.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="R">Relationships</span>
+          <span class="rs-pill" data-letter="E">Engagement</span>
+          <span class="rs-pill" data-letter="A">Advocacy</span>
+        </div>
+      </div>
+
+      <!-- Impact Measurement -->
+      <div class="rs-tile" data-maps="I">
+        <div class="rs-tile-name">Impact Measurement</div>
+        <div class="rs-tile-body">Programme KPIs, engagement reporting and executive dashboards.</div>
+        <div class="rs-pill-row">
+          <span class="rs-pill" data-letter="I">Insights</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Reset -->
+    <div style="text-align:center;margin-top:24px">
+      <button id="retain-reset" onclick="resetRetain()" style="display:none;font-size:12px;font-weight:600;color:#94A3B8;background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;padding:8px 16px;border-radius:9999px;transition:all 0.2s" onmouseover="this.style.color='#2D2E6E';this.style.background='#F5F5FA'" onmouseout="this.style.color='#94A3B8';this.style.background='none'">
+        ✕ Clear selection
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- RETAIN styles -->
+<style>
+  /* Tile base */
+  .retain-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 28px 12px;
+    background: white;
+    border: 1.5px solid #E8E8F4;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(45,46,110,0.06);
+  }
+
+  .retain-tile:hover {
+    border-color: #2D2E6E;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 32px rgba(45,46,110,0.15);
+  }
+
+  .retain-tile:focus-visible {
+    outline: 2px solid #A040A0;
+    outline-offset: 3px;
+  }
+
+  .retain-tile.rt-active {
+    border-color: transparent;
+    transform: translateY(-6px) scale(1.06);
+    box-shadow: 0 16px 40px rgba(45,46,110,0.22);
+  }
+
+  .retain-tile.rt-dim {
+    opacity: 0.3;
+    transform: scale(0.97);
+    box-shadow: none;
+    border-color: #E8E8F4;
+  }
+
+  /* Letter */
+  .retain-tile-letter {
+    font-size: 44px;
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: #A040A0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .retain-tile.rt-active .retain-tile-letter {
+    color: white;
+  }
+
+  /* Word */
+  .retain-tile-word {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #64648A;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .retain-tile.rt-active .retain-tile-word {
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* Glow background — fills tile on active */
+  .retain-tile-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .retain-tile.rt-active .retain-tile-glow {
+    opacity: 1;
+  }
+
+  /* Solution tiles */
+  .rs-tile {
+    background: white;
+    border: 1.5px solid #E8E8F4;
+    border-radius: 14px;
+    padding: 20px 20px 16px;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rs-tile::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #E8E8F4;
+    transition: background 0.3s;
+  }
+
+  .rs-tile.rs-active {
+    border-color: #2D2E6E;
+    box-shadow: 0 6px 24px rgba(45,46,110,0.12);
+    transform: translateY(-2px);
+  }
+
+  .rs-tile.rs-active::before {
+    background: linear-gradient(90deg, #2D2E6E, #A040A0);
+  }
+
+  .rs-tile.rs-dim {
+    opacity: 0.2;
+    transform: scale(0.97);
+  }
+
+  .rs-tile-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1A1A2E;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+    transition: color 0.25s;
+  }
+
+  .rs-tile.rs-active .rs-tile-name { color: #2D2E6E; }
+
+  .rs-tile-body {
+    font-size: 12px;
+    color: #64648A;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .rs-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .rs-pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    background: #F5F5FA;
+    color: #64648A;
+    border: 1px solid #E8E8F4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+
+  .rs-pill.rs-pill-active {
+    background: #2D2E6E;
+    color: white;
+    border-color: #2D2E6E;
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    #retain-solutions {
+      grid-template-columns: repeat(2,1fr) !important;
+    }
+    /* RETAIN tiles — 3 columns on tablet */
+    #retain-section [role="group"] {
+      grid-template-columns: repeat(3,1fr) !important;
+    }
+  }
+
+  @media (max-width: 560px) {
+    #retain-solutions {
+      grid-template-columns: 1fr !important;
+    }
+    /* RETAIN tiles — 2 columns on mobile */
+    #retain-section [role="group"] {
+      grid-template-columns: repeat(2,1fr) !important;
+    }
+    .retain-tile { padding: 20px 8px; }
+    .retain-tile-letter { font-size: 32px; }
+  }
+</style>
+
+<script>
+  /* ── RETAIN mappings ── */
+  const retainMap = {
+    R: ['Customer Advocacy','Community','Events & User Groups'],
+    E: ['Webinars','Community','Content Marketing','Customer Marketing'],
+    T: ['Customer Stories','Content Marketing','Webinars'],
+    A: ['Customer Advocacy','Customer Stories','Events & User Groups','Webinars'],
+    I: ['Impact Measurement','Customer Marketing','Customer Advocacy','Community'],
+    N: ['Customer Marketing','Community','Content Marketing','Webinars']
+  };
+
+  const retainWords = {
+    R:'Relationships', E:'Engagement', T:'Trust',
+    A:'Advocacy', I:'Insights', N:'Nurture'
+  };
+
+  const retainGradients = {
+    R:'linear-gradient(135deg,#2D2E6E,#4A4DB8)',
+    E:'linear-gradient(135deg,#4A4DB8,#6B4FBB)',
+    T:'linear-gradient(135deg,#6B4FBB,#A040A0)',
+    A:'linear-gradient(135deg,#A040A0,#C8407A)',
+    I:'linear-gradient(135deg,#C8407A,#E8605A)',
+    N:'linear-gradient(135deg,#E8605A,#E8735A)'
+  };
+
+  let currentLetter = null;
+
+  function activateRetain(letter) {
+    /* Toggle off if same */
+    if (currentLetter === letter) { resetRetain(); return; }
+    currentLetter = letter;
+
+    /* Update RETAIN tiles */
+    document.querySelectorAll('.retain-tile').forEach(t => {
+      const isActive = t.dataset.letter === letter;
+      t.classList.toggle('rt-active', isActive);
+      t.classList.toggle('rt-dim', !isActive);
+      if (isActive) {
+        t.querySelector('.retain-tile-glow').style.background = retainGradients[letter];
+      }
+    });
+
+    /* Active label */
+    const txt = document.getElementById('retain-active-text');
+    txt.textContent = `${letter} — ${retainWords[letter]}`;
+    txt.style.opacity = '1';
+    txt.style.transform = 'translateY(0)';
+
+    /* Hide microcopy */
+    document.getElementById('retain-microcopy').style.opacity = '0';
+
+    /* Show solution panel */
+    const sol = document.getElementById('retain-solutions');
+    sol.style.maxHeight = '600px';
+    sol.style.opacity = '1';
+
+    /* Update solution tiles */
+    const active = retainMap[letter];
+    document.querySelectorAll('.rs-tile').forEach(t => {
+      const maps = t.dataset.maps.split(',');
+      const isHit = active.some(prog =>
+        t.querySelector('.rs-tile-name').textContent.trim() === prog
+      );
+      t.classList.toggle('rs-active', isHit);
+      t.classList.toggle('rs-dim', !isHit);
+      /* Update pills */
+      t.querySelectorAll('.rs-pill').forEach(p => {
+        p.classList.toggle('rs-pill-active', p.dataset.letter === letter);
+      });
+    });
+
+    /* Show reset */
+    document.getElementById('retain-reset').style.display = 'inline-block';
+  }
+
+  function resetRetain() {
+    currentLetter = null;
+
+    document.querySelectorAll('.retain-tile').forEach(t => {
+      t.classList.remove('rt-active','rt-dim');
+    });
+
+    const txt = document.getElementById('retain-active-text');
+    txt.style.opacity = '0';
+    txt.style.transform = 'translateY(6px)';
+
+    document.getElementById('retain-microcopy').style.opacity = '1';
+
+    const sol = document.getElementById('retain-solutions');
+    sol.style.maxHeight = '0';
+    sol.style.opacity = '0';
+
+    document.querySelectorAll('.rs-tile').forEach(t => {
+      t.classList.remove('rs-active','rs-dim');
+      t.querySelectorAll('.rs-pill').forEach(p => p.classList.remove('rs-pill-active'));
+    });
+
+    document.getElementById('retain-reset').style.display = 'none';
+  }
+
+  /* Keyboard navigation for RETAIN tiles */
+  document.querySelectorAll('.retain-tile').forEach(tile => {
+    tile.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateRetain(tile.dataset.letter);
+      }
+    });
+  });
+</script>
+
+<!-- ════════════════════════════════════════════
+     SERVICES
+════════════════════════════════════════════ -->
+<section class="section-pad" style="background:white">
+  <div class="inner">
+
+    <div style="margin-bottom:56px">
+      <div class="positioning-eyebrow" style="margin-bottom:16px">
+        <span class="hero-eyebrow-dot"></span>
+        Services
+      </div>
+      <h2 class="positioning-h2" style="max-width:560px">
+        Everything after the sale.
+      </h2>
+      <p style="font-size:17px;color:#64648A;line-height:1.7;max-width:520px">
+        Five post-sale capabilities — built and operated by Retentio, not merely advised on. Senior customer marketing expertise, delivered faster with AI-assisted execution.
+      </p>
+    </div>
+
+    <div class="services-grid">
+
+      <a href="services.html#advocacy" class="service-card">
+        <div class="service-icon" style="background:#EEF2FF">📣</div>
+        <div class="service-type" style="color:#2D2E6E">Customer Advocacy</div>
+        <div class="service-title">Turn your happiest customers into a growth channel.</div>
+        <div class="service-body">References · case studies · reviews · referrals · champion identification and advocacy programmes — structured and systematically activated.</div>
+        <span class="service-link">Learn more →</span>
+      </a>
+
+      <a href="services.html#marketing" class="service-card">
+        <div class="service-icon" style="background:#F5F0FF">💬</div>
+        <div class="service-type" style="color:#4A4DB8">Customer Marketing</div>
+        <div class="service-title">Build the post-sale motion around customers you've already won.</div>
+        <div class="service-body">Adoption · engagement · lifecycle campaigns · customer communications · expansion support — campaigns built around the customer journey.</div>
+        <span class="service-link">Learn more →</span>
+      </a>
+
+      <a href="services.html#community" class="service-card">
+        <div class="service-icon" style="background:#FDF4FF">🌐</div>
+        <div class="service-type" style="color:#A040A0">Community</div>
+        <div class="service-title">You own the community. We run the operating layer.</div>
+        <div class="service-body">Strategy · platform guidance · content · moderation · activation · reporting — you keep the platform and all customer data.</div>
+        <span class="service-link">Learn more →</span>
+      </a>
+
+      <a href="services.html#events" class="service-card">
+        <div class="service-icon" style="background:#F0FDFA">🎯</div>
+        <div class="service-type" style="color:#0F766E">Events & User Groups</div>
+        <div class="service-title">Turn customer moments into relationship and growth opportunities.</div>
+        <div class="service-body">Customer events · user groups · advocacy moments · post-event engagement — scoped and facilitated by Retentio.</div>
+        <span class="service-link">Learn more →</span>
+      </a>
+
+      <a href="services.html#measurement" class="service-card wide">
+        <div class="service-icon" style="background:#F0FDF4">📊</div>
+        <div class="service-type" style="color:#166534">Impact Measurement</div>
+        <div class="service-title">Make customer programmes measurable.</div>
+        <div class="service-body">Practical KPIs · advocacy measurement · engagement reporting · executive dashboards. Programme outcomes tracked separately from business impact — no attribution guesswork, no inflated claims.</div>
+        <span class="service-link">Learn more →</span>
+      </a>
+
+    </div>
+
+    <div style="text-align:center;margin-top:48px">
+      <a href="services.html" class="btn-hero-secondary">See all services →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     AUDIT — Start with clarity
+════════════════════════════════════════════ -->
+<section class="section-pad" style="background:#F5F5FA">
+  <div class="inner">
+    <div class="audit-grid">
+
+      <!-- Left — 3 steps -->
+      <div>
+        <div class="positioning-eyebrow" style="margin-bottom:20px">
+          <span class="hero-eyebrow-dot"></span>
+          Where to start
+        </div>
+        <h2 class="positioning-h2">A simple path from problem to execution.</h2>
+        <p style="font-size:16px;color:#64648A;line-height:1.7;margin-bottom:32px">
+          Every engagement starts with understanding the problem — not a generic audit, but a focused look at where the biggest customer growth opportunity sits for your business.
+        </p>
+        <div class="audit-steps">
+          <div class="audit-step">
+            <div class="audit-step-num">01</div>
+            <div>
+              <div class="audit-step-title">Understand</div>
+              <div class="audit-step-body">We map what's happening across your customers, sales motion and post-sale programmes — and identify where the biggest opportunity sits.</div>
+            </div>
+          </div>
+          <div class="audit-step">
+            <div class="audit-step-num">02</div>
+            <div>
+              <div class="audit-step-title">Prioritise</div>
+              <div class="audit-step-body">Which customers to activate, which gaps to close, what to build first — a focused recommendation, not an open-ended document.</div>
+            </div>
+          </div>
+          <div class="audit-step">
+            <div class="audit-step-num">03</div>
+            <div>
+              <div class="audit-step-title">Build</div>
+              <div class="audit-step-body">Where there's a fit, we build and run the highest-priority programme — bounded scope, clear outcomes, practical execution.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — audit card -->
+      <div>
+        <div class="audit-card">
+          <div class="audit-card-tag">Customer Growth Audit</div>
+          <div class="audit-card-title">Start with clarity.</div>
+          <div class="audit-card-body">
+            A focused assessment of your customer base, advocacy readiness, proof gaps and post-sale opportunities. The output is a prioritised view of where to focus and what to build next.
+          </div>
+          <div class="audit-deliverables">
+            <div class="audit-del"><span class="audit-del-dot"></span>Champion opportunity map</div>
+            <div class="audit-del"><span class="audit-del-dot"></span>Advocacy and reference gap analysis</div>
+            <div class="audit-del"><span class="audit-del-dot"></span>Customer proof and review opportunities</div>
+            <div class="audit-del"><span class="audit-del-dot"></span>Lifecycle and engagement opportunities</div>
+            <div class="audit-del"><span class="audit-del-dot"></span>90-day prioritised programme direction</div>
+            <div class="audit-del"><span class="audit-del-dot"></span>Executive readout session</div>
+          </div>
+          <a href="contact.html" class="btn-hero-primary">Talk to us →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     DARK — AI positioning line
+════════════════════════════════════════════ -->
+<section class="dark-section">
+  <div class="inner">
+    <div class="positioning-eyebrow" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12);color:#6EC6C8;margin:0 auto 20px;width:fit-content">
+      <span style="width:6px;height:6px;border-radius:50%;background:#6EC6C8;display:inline-block"></span>
+      How we work
+    </div>
+    <h2 style="color:white;font-size:clamp(26px,3.5vw,44px);font-weight:800;letter-spacing:-0.03em;max-width:640px;margin:0 auto 20px;line-height:1.15">
+      Senior customer marketing expertise, delivered faster with AI-assisted execution.
+    </h2>
+    <p style="color:rgba(255,255,255,0.5);font-size:17px;max-width:500px;margin:0 auto 40px;line-height:1.7">
+      We bring the strategic depth of enterprise customer marketing programmes — and use AI to research, analyse, produce and report faster.
+    </p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <a href="contact.html" class="btn-hero-primary" style="background:white;color:#2D2E6E;border-color:white">Talk to us →</a>
+      <a href="how-it-works.html" class="btn-hero-secondary" style="color:white;border-color:rgba(255,255,255,0.4)">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FREE RESOURCES
+════════════════════════════════════════════ -->
+<section class="section-pad" style="background:#F5F5FA">
+  <div class="inner">
+    <div class="prompt-card">
+
+      <!-- Left -->
+      <div>
+        <div class="positioning-eyebrow" style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);color:#6EC6C8;margin-bottom:20px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#6EC6C8;display:inline-block"></span>
+          Free resources
+        </div>
+        <h2 style="color:white;font-size:clamp(22px,2.8vw,34px);font-weight:800;letter-spacing:-0.03em;line-height:1.2;margin-bottom:16px">
+          20 AI prompt frameworks for customer marketing — free.
+        </h2>
+        <p style="color:rgba(255,255,255,0.55);font-size:16px;line-height:1.7;margin-bottom:28px">
+          Built from enterprise-scale post-sale programmes. Use them to write case studies, identify champions, run retention campaigns and sharpen your GTM messaging.
+        </p>
+        <form onsubmit="handleSubmit(event)" style="display:flex;gap:10px;flex-wrap:wrap">
+          <input
+            type="email"
+            placeholder="Work email address"
+            required
+            style="flex:1;min-width:190px;padding:12px 20px;border-radius:9999px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none"
+            onfocus="this.style.borderColor='rgba(110,198,200,0.7)'"
+            onblur="this.style.borderColor='rgba(255,255,255,0.2)'"
+          >
+          <button type="submit" style="background:white;color:#2D2E6E;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;padding:12px 24px;border-radius:9999px;border:none;cursor:pointer;white-space:nowrap;transition:all 0.2s"
+            onmouseover="this.style.background='#F5F5FA'"
+            onmouseout="this.style.background='white'"
+          >Download free →</button>
+        </form>
+        <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:10px">No spam · Unsubscribe anytime</p>
+      </div>
+
+      <!-- Right — categories -->
+      <div>
+        <div class="prompt-category">
+          <div class="prompt-cat-label">Case Study Prompts</div>
+          <div class="prompt-cat-desc">6 prompts — discovery call through publish-ready story</div>
+        </div>
+        <div class="prompt-category">
+          <div class="prompt-cat-label">Champion Identification</div>
+          <div class="prompt-cat-desc">5 prompts — find and activate your strongest advocates</div>
+        </div>
+        <div class="prompt-category">
+          <div class="prompt-cat-label">Retention Campaigns</div>
+          <div class="prompt-cat-desc">5 prompts — churn signals through re-engagement</div>
+        </div>
+        <div class="prompt-category" style="margin-bottom:0">
+          <div class="prompt-cat-label">GTM Messaging</div>
+          <div class="prompt-cat-desc">5 prompts — positioning, battlecards and objection handling</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     BOTTOM CTA
+════════════════════════════════════════════ -->
+<section class="bottom-cta">
+  <div class="inner">
+    <div class="positioning-eyebrow" style="margin:0 auto 20px;width:fit-content">
+      <span class="hero-eyebrow-dot"></span>
+      Let's talk
+    </div>
+    <h2 style="font-size:clamp(26px,3.5vw,44px);font-weight:800;letter-spacing:-0.03em;color:#1A1A2E;max-width:540px;margin:0 auto 20px;line-height:1.15">
+      Bring us the customer-growth problem you're wrestling with.
+    </h2>
+    <p style="font-size:17px;color:#64648A;max-width:460px;margin:0 auto 36px;line-height:1.7">
+      We'll understand the problem, share what we're seeing, and tell you whether there's a meaningful opportunity for Retentio to help.
+    </p>
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+      <a href="contact.html" class="btn-hero-primary">Talk to us →</a>
+      <a href="how-it-works.html" class="btn-hero-secondary">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="inner">
+    <div class="footer-grid">
+
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">R</div>
+          <span class="footer-logo-text">retentio</span>
+        </div>
+        <p class="footer-tagline">Turn your happiest customers into your next growth channel.</p>
+        <a href="mailto:hello@retentio.in" class="footer-email">hello@retentio.in</a>
+        <div class="footer-social">
+          <a href="#">LinkedIn</a>
+          <a href="#">Twitter / X</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html#advocacy">Customer Advocacy</a>
+        <a href="services.html#marketing">Customer Marketing</a>
+        <a href="services.html#community">Community</a>
+        <a href="services.html#events">Events & User Groups</a>
+        <a href="services.html#measurement">Impact Measurement</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="how-it-works.html">How it works</a>
+        <a href="resources.html">Free prompt library</a>
+        <a href="resources.html">Playbooks & guides</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="contact.html">Talk to us</a>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Retentio. All rights reserved.</p>
+      <p class="footer-copy">Privacy Policy · retentio.in</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+  function toggleNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mobileNav');
+    const toggle = document.querySelector('.nav-mobile-toggle');
+    if (nav && toggle && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+    }
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    form.innerHTML = '<p style="color:#A8D878;font-size:16px;font-weight:700">✓ Check your inbox — the prompt library is on its way!</p>';
+  }
+
+  // Active nav state
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('href') === page) a.classList.add('active');
+  });
+</script>
+
+</body>
+</html>
