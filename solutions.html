@@ -20,13 +20,13 @@
   --teal:#56bfc3;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
 body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--paper)}
 a{text-decoration:none;color:inherit}
 .container{width:min(1180px,calc(100% - 48px));margin:auto}
 
 .nav{
-  height:72px;position:sticky;top:0;z-index:20;
+  height:72px;position:sticky;top:0;z-index:40;
   background:rgba(251,251,253,.94);
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line)
@@ -34,8 +34,56 @@ a{text-decoration:none;color:inherit}
 .nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
 .brand img{width:31px;height:31px;object-fit:contain}
-.nav-links{display:flex;gap:28px;font-size:13px;font-weight:600;color:#54556e}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:600;color:#54556e}
 .nav-links a:hover{color:var(--navy)}
+.nav-dropdown{position:relative}
+.nav-dropdown-toggle{display:inline-flex;align-items:center;gap:5px}
+.nav-caret{display:inline-block;font-size:9px;line-height:1;opacity:.7}
+.nav-dropdown-menu{
+  display:none;position:absolute;top:calc(100% + 8px);left:0;
+  min-width:292px;padding:8px;background:#fff;
+  border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 10px 28px rgba(45,46,110,.12);z-index:30
+}
+.nav-dropdown-menu::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-links .nav-dropdown-menu a{
+  display:block;padding:8px 12px;border-radius:8px;
+  font-size:13px;font-weight:600;color:#54556e;white-space:nowrap
+}
+.nav-links .nav-dropdown-menu a:hover{background:#f5f5fa;color:var(--navy)}
+.nav-end{display:flex;align-items:center;gap:12px}
+.nav-mobile-toggle{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  padding:8px;background:none;border:none
+}
+.nav-mobile-toggle span{
+  width:22px;height:2px;background:var(--navy);border-radius:999px;display:block
+}
+.nav-mobile{
+  display:none;position:fixed;top:72px;left:0;right:0;
+  background:#fff;border-bottom:1px solid var(--line);
+  padding:16px 24px;flex-direction:column;gap:4px;z-index:25;
+  box-shadow:0 8px 32px rgba(45,46,110,.12)
+}
+.nav-mobile.open{display:flex}
+.nav-mobile a{
+  font-size:15px;font-weight:600;color:var(--ink);
+  padding:10px 14px;border-radius:10px
+}
+.nav-mobile a:hover{background:#f5f5fa}
+.nav-mobile-sub-toggle{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  font:inherit;font-size:15px;font-weight:600;color:var(--ink);
+  padding:10px 14px;border:0;background:none;border-radius:10px;
+  cursor:pointer;text-align:left
+}
+.nav-mobile-sub-toggle:hover{background:#f5f5fa}
+.nav-mobile-sub{display:none;flex-direction:column;padding:2px 0 8px 8px}
+.nav-mobile-item.open .nav-mobile-sub{display:flex}
+.nav-mobile-sub a{font-size:14px;font-weight:600;color:#54556e;padding:8px 14px}
 .nav-cta{
   background:var(--navy);color:#fff;border-radius:999px;
   padding:10px 16px;font-size:13px;font-weight:700
@@ -139,6 +187,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
 
 @media(max-width:900px){
   .nav-links{display:none}
+  .nav-mobile-toggle{display:flex}
   .intro-grid{grid-template-columns:1fr;gap:23px}
   .programme{grid-template-columns:1fr}
   .visual{min-height:420px;padding:26px}
@@ -167,6 +216,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
   --shadow: 0 20px 50px -20px rgba(30, 27, 69, 0.18);
   --max: 1180px;
   padding: 0 32px 60px;
+  scroll-margin-top: 100px;
 }
 .solution-card{
   max-width: var(--max);
@@ -249,14 +299,53 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
       <span>retentio</span>
     </a>
     <div class="nav-links">
-      <a href="solutions.html" style="color:var(--navy)">Solutions</a>
+      <div class="nav-dropdown">
+        <a href="solutions.html" class="nav-dropdown-toggle" style="color:var(--navy)">Solutions <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="#community">Community</a>
+          <a href="#champion-programmes">Champion Programmes</a>
+          <a href="#customer-led-content">Customer-led Content</a>
+          <a href="#customer-education">Customer Education & Webinars</a>
+          <a href="#user-groups-events">User Groups & Events</a>
+          <a href="#customer-stories">Customer Stories & Case Studies</a>
+          <a href="#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+          <a href="#win-back">Win-back & Re-engagement</a>
+          <a href="#in-product-guides">In-Product Guides</a>
+        </div>
+      </div>
       <a href="resources.html">Resources</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </div>
-    <a class="nav-cta" href="contact.html">Talk to us →</a>
+    <div class="nav-end">
+      <a class="nav-cta" href="contact.html">Talk to us →</a>
+      <button class="nav-mobile-toggle" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
+
+<div class="nav-mobile" id="mobileNav">
+  <div class="nav-mobile-item">
+    <button type="button" class="nav-mobile-sub-toggle" aria-expanded="false">Solutions <span class="nav-caret" aria-hidden="true">▾</span></button>
+    <div class="nav-mobile-sub">
+      <a href="#community">Community</a>
+      <a href="#champion-programmes">Champion Programmes</a>
+      <a href="#customer-led-content">Customer-led Content</a>
+      <a href="#customer-education">Customer Education & Webinars</a>
+      <a href="#user-groups-events">User Groups & Events</a>
+      <a href="#customer-stories">Customer Stories & Case Studies</a>
+      <a href="#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+      <a href="#win-back">Win-back & Re-engagement</a>
+      <a href="#in-product-guides">In-Product Guides</a>
+    </div>
+  </div>
+  <a href="resources.html">Resources</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html" class="nav-cta" style="margin-top:8px;text-align:center">Talk to us →</a>
+</div>
 
 <header class="hero">
   <div class="container">
@@ -274,7 +363,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
 </section>
 
 <main>
-  <section class="card-section">
+  <section class="card-section" id="community">
     <div class="solution-card">
       <div class="solution-visual">
         <img src="assets/community-visual.svg" alt="Community programme visual">
@@ -287,7 +376,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="champion-programmes">
     <div class="solution-card reverse">
       <div class="solution-visual">
         <img src="assets/champion-programme-visual.svg" alt="Champion programmes visual showing customers becoming advocates for references, reviews, customer stories and referrals">
@@ -300,7 +389,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="customer-education">
     <div class="solution-card">
       <div class="solution-visual">
         <img src="assets/webinar-visual.svg" alt="Webinars programme visual">
@@ -313,7 +402,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="user-groups-events">
     <div class="solution-card reverse">
       <div class="solution-visual">
         <img src="assets/user-groups-events-visual.svg" alt="User groups and events visual">
@@ -326,7 +415,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="customer-stories">
     <div class="solution-card">
       <div class="solution-visual">
         <img src="assets/customer-stories-visual.svg" alt="Customer stories and case studies visual">
@@ -339,7 +428,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="lifecycle-email">
     <div class="solution-card reverse">
       <div class="solution-visual">
         <img src="assets/lifecycle-email-nurture-visual.svg" alt="Lifecycle email nurture visual">
@@ -352,7 +441,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="win-back">
     <div class="solution-card">
       <div class="solution-visual">
         <img src="assets/win-back-re-engagement-visual.svg" alt="Win-back and re-engagement visual">
@@ -365,7 +454,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="in-product-guides">
     <div class="solution-card reverse">
       <div class="solution-visual">
         <img src="assets/in-product-guides-visual.svg.svg" alt="In-product guides visual">
@@ -378,7 +467,7 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
     </div>
   </section>
 
-  <section class="card-section">
+  <section class="card-section" id="customer-led-content">
     <div class="solution-card">
       <div class="solution-visual">
         <img src="assets/customer-led-content-visual.svg" alt="Customer-led content visual">
@@ -404,5 +493,41 @@ footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
 <footer>
   <div class="container">© 2026 Retentio · Turn your happiest customers into your next growth channel.</div>
 </footer>
+<script>
+  function toggleNav() {
+    document.getElementById('mobileNav').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mobileNav');
+    const toggle = document.querySelector('.nav-mobile-toggle');
+    if (nav && toggle && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+    }
+    document.querySelectorAll('.nav-dropdown').forEach(function(drop) {
+      if (!drop.contains(e.target)) drop.classList.remove('open');
+    });
+  });
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const links = document.querySelector('.nav-links');
+      if (!links || window.getComputedStyle(links).display === 'none') return;
+      e.preventDefault();
+      toggle.closest('.nav-dropdown').classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.nav-mobile-sub-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const item = btn.closest('.nav-mobile-item');
+      btn.setAttribute('aria-expanded', String(item.classList.toggle('open')));
+    });
+  });
+  document.querySelectorAll('#mobileNav a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('mobileNav').classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>
