@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions — Retentio</title>
+<meta name="description" content="Retentio solutions — nine customer programmes that drive adoption, retention and advocacy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171827;
+  --muted:#626580;
+  --line:#e8e8f0;
+  --paper:#fbfbfd;
+  --white:#fff;
+  --navy:#2d2e6e;
+  --pink:#a447a6;
+  --teal:#56bfc3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--paper)}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,calc(100% - 48px));margin:auto}
+
+.nav{
+  height:72px;position:sticky;top:0;z-index:20;
+  background:rgba(251,251,253,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)
+}
+.nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.02em}
+.brand img{width:31px;height:31px;object-fit:contain}
+.nav-links{display:flex;gap:28px;font-size:13px;font-weight:600;color:#54556e}
+.nav-links a:hover{color:var(--navy)}
+.nav-cta{
+  background:var(--navy);color:#fff;border-radius:999px;
+  padding:10px 16px;font-size:13px;font-weight:700
+}
+
+.hero{
+  padding:92px 0 78px;
+  background:linear-gradient(180deg,#fbfbfd 0%,#f5f4fa 100%);
+  border-bottom:1px solid var(--line)
+}
+.eyebrow{
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:800;color:#777890;margin-bottom:18px
+}
+.hero h1{
+  font-size:clamp(44px,6vw,70px);line-height:1.03;
+  letter-spacing:-.055em;max-width:900px;margin:0 0 22px
+}
+.hero h1 span{color:var(--pink);font-style:italic}
+.hero p{
+  max-width:790px;margin:0;color:var(--muted);
+  font-size:18px;line-height:1.75
+}
+
+.intro{padding:76px 0 44px}
+.intro-grid{
+  display:grid;grid-template-columns:1fr 1.25fr;
+  gap:74px;align-items:start
+}
+.intro h2{
+  font-size:clamp(30px,4vw,47px);line-height:1.08;
+  letter-spacing:-.045em;margin:0
+}
+.intro p{font-size:16px;line-height:1.8;color:var(--muted);margin:3px 0 0}
+
+.programmes{padding:20px 0 112px}
+.programme{
+  display:grid;grid-template-columns:40% 60%;
+  min-height:560px;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line)
+}
+
+.visual{
+  min-height:560px;
+  padding:20px 18px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,#f7f5ff 0%,#f1effb 100%);
+  position:relative;overflow:hidden
+}
+.visual::before{
+  content:"";position:absolute;width:370px;height:370px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(190,166,255,.26) 0%,rgba(190,166,255,0) 72%);
+  left:-110px;bottom:-120px
+}
+.visual img{
+  width:100%;height:auto;max-width:560px;display:block;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 22px 34px rgba(45,46,110,.10))
+}
+.visual-note{
+  position:absolute;left:22px;bottom:17px;z-index:2;
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:800;color:#898a9d
+}
+
+.copy{
+  background:#fff;padding:70px 64px;
+  display:flex;flex-direction:column;justify-content:center
+}
+.copy h2{
+  font-size:clamp(30px,3.2vw,44px);
+  line-height:1.1;letter-spacing:-.045em;margin:0 0 20px
+}
+.copy p{font-size:16px;line-height:1.82;color:var(--muted);margin:0}
+.business-copy{margin-top:28px!important;color:var(--ink)!important}
+.business-copy b{font-weight:800;color:var(--ink)}
+
+.debug{
+  margin-top:32px;padding-top:22px;border-top:1px dashed #ddddeb
+}
+.debug-label{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:800;color:#8a8b9e;margin-bottom:8px
+}
+.debug p{font-size:13px;line-height:1.65;color:#7a7b90;margin:0}
+
+.bottom{background:#1b1c2e;color:#fff;padding:78px 0}
+.bottom .eyebrow{color:#72c6c8}
+.bottom h2{
+  font-size:clamp(31px,4.5vw,52px);line-height:1.05;
+  letter-spacing:-.045em;max-width:770px;margin:0 0 17px
+}
+.bottom p{color:#a9aabd;font-size:16px;line-height:1.75;max-width:650px;margin:0}
+.bottom-link{
+  display:inline-flex;margin-top:28px;background:#fff;color:var(--navy);
+  padding:12px 18px;border-radius:999px;font-size:13px;font-weight:700
+}
+
+footer{padding:28px 0;background:#12131f;color:#85869e;font-size:11px}
+
+@media(max-width:900px){
+  .nav-links{display:none}
+  .intro-grid{grid-template-columns:1fr;gap:23px}
+  .programme{grid-template-columns:1fr}
+  .visual{min-height:420px;padding:26px}
+  .copy{padding:48px 34px}
+}
+@media(max-width:600px){
+  .container{width:calc(100% - 32px)}
+  .hero{padding:68px 0 58px}
+  .hero p{font-size:16px}
+  .intro{padding:58px 0 34px}
+  .programmes{padding-bottom:76px}
+  .visual{min-height:310px;padding:18px}
+  .copy{padding:36px 24px}
+}
+
+.card-section{
+  --navy: #1E1B45;
+  --navy-soft: #4B4876;
+  --purple: #7C3AED;
+  --magenta: #E63A8C;
+  --lavender: #F6F3FF;
+  --lavender-2: #EFEAFC;
+  --border: #E7E3F5;
+  --paper: #FFFFFF;
+  --ink-body: #4A4768;
+  --shadow: 0 20px 50px -20px rgba(30, 27, 69, 0.18);
+  --max: 1180px;
+  padding: 0 32px 60px;
+}
+.solution-card{
+  max-width: var(--max);
+  margin: 0 auto;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 40% 60%;
+  overflow: hidden;
+}
+.solution-card.reverse{
+  grid-template-columns: 60% 40%;
+}
+.solution-card.reverse .solution-visual{
+  order: 2;
+}
+.solution-card.reverse .solution-copy{
+  order: 1;
+}
+.solution-visual{
+  background: linear-gradient(160deg, var(--lavender) 0%, var(--lavender-2) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 40px;
+}
+.solution-visual img{
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+.solution-copy{
+  padding: 64px 60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap: 22px;
+}
+.solution-copy h3{
+  font-size: clamp(1.7rem, 2.4vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--navy);
+}
+.solution-copy p{
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--ink-body);
+  margin: 0;
+}
+.solution-copy p.impact{
+  color: var(--navy);
+  font-weight: 500;
+}
+@media (max-width: 900px){
+  .solution-card, .solution-card.reverse{
+    grid-template-columns: 1fr;
+  }
+  .solution-card.reverse .solution-visual,
+  .solution-card.reverse .solution-copy,
+  .solution-card .solution-visual,
+  .solution-card .solution-copy{
+    order: initial;
+  }
+  .solution-copy{ padding: 44px 32px; }
+  .solution-visual{ padding: 32px; }
+}
+</style>
+</head>
+
+<body>
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/retentio-logo.png" alt="Retentio logo">
+      <span>retentio</span>
+    </a>
+    <div class="nav-links">
+      <a href="solutions.html" style="color:var(--navy)">Solutions</a>
+      <a href="resources.html">Resources</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a class="nav-cta" href="contact.html">Talk to us →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">SOLUTIONS</div>
+    <h1>Retention is new demand.<br><span>Adoption is value realised.</span></h1>
+    <p>Retentio builds post-sale programmes that help customers adopt your product, stay engaged and become advocates. Because keeping and growing an existing customer is always less expensive than losing one.</p>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="container intro-grid">
+    <h2>We build the programmes that make customers stay.</h2>
+    <p>From communities and lifecycle email nurture to in-product guides, customer education, champion programmes, user groups and customer-led content — we design and run the post-sale motions that move customers from first value to lasting engagement.</p>
+  </div>
+</section>
+
+<main>
+  <section class="card-section">
+    <div class="solution-card">
+      <div class="solution-visual">
+        <img src="assets/community-visual.svg" alt="Community programme visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Community</h3>
+        <p>Build an active customer community where customers connect with peers, learn from each other, share product experiences and find more reasons to engage with your brand.</p>
+        <p class="impact">It creates an always-on customer touchpoint that strengthens engagement, builds belonging and gives your team a natural environment to surface advocates, insight and new opportunities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card reverse">
+      <div class="solution-visual">
+        <img src="assets/champion-programme-visual.svg" alt="Champion programmes visual showing customers becoming advocates for references, reviews, customer stories and referrals">
+      </div>
+      <div class="solution-copy">
+        <h3>Champion Programmes</h3>
+        <p>Turn your strongest customers into active advocates who participate in reference calls, reviews, customer stories, peer-to-peer conversations and referral programmes.</p>
+        <p class="impact">It creates a repeatable advocacy engine that brings trusted customer voices into sales and marketing while giving your best customers a stronger role in your brand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card">
+      <div class="solution-visual">
+        <img src="assets/webinar-visual.svg" alt="Webinars programme visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Webinars</h3>
+        <p>Build customer-led education through webinars, expert sessions, certifications and product learning aligned to the use cases your customers need to discover and develop.</p>
+        <p class="impact">It accelerates product adoption and creates meaningful, recurring engagement — bringing customers into the programme as contributors, speakers and voices of experience, not just attendees.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card reverse">
+      <div class="solution-visual">
+        <img src="assets/user-groups-events-visual.svg" alt="User groups and events visual">
+      </div>
+      <div class="solution-copy">
+        <h3>User Groups & Events</h3>
+        <p>Create regional, role-based and domain-led customer groups and events that bring people together around shared challenges, use cases and experiences.</p>
+        <p class="impact">It deepens customer relationships, encourages peer connection and creates natural moments to identify advocates, generate reference calls and build stronger customer networks within key regions and domains.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card">
+      <div class="solution-visual">
+        <img src="assets/customer-stories-visual.svg" alt="Customer stories and case studies visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Customer Stories / Case Studies</h3>
+        <p>Turn successful customer experiences into shorter, sharper proof points — case studies, social posts, sales-ready stories and shareable customer moments.</p>
+        <p class="impact">It gives sales and marketing credible customer proof that can travel across the funnel and helps prospects see a real customer outcome, not just a product claim.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card reverse">
+      <div class="solution-visual">
+        <img src="assets/lifecycle-email-nurture-visual.svg" alt="Lifecycle email nurture visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Lifecycle Email Nurture</h3>
+        <p>Use lifecycle email programmes to keep customers moving through the moments that matter — from onboarding and adoption to renewal, expansion and re-engagement.</p>
+        <p class="impact">It keeps customers engaged with the right message at the right moment and helps reduce disengagement before it becomes a feature-adoption, renewal or churn problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card">
+      <div class="solution-visual">
+        <img src="assets/win-back-re-engagement-visual.svg" alt="Win-back and re-engagement visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Win-back & Re-engagement</h3>
+        <p>Use customer signals to identify disengagement early and create relevant reasons to return — before inactivity becomes a renewal or churn problem.</p>
+        <p class="impact">It reactivates customer engagement and gives teams earlier opportunities to intervene with at-risk relationships before they become harder to recover.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card reverse">
+      <div class="solution-visual">
+        <img src="assets/in-product-guides-visual.svg.svg" alt="In-product guides visual">
+      </div>
+      <div class="solution-copy">
+        <h3>In-Product Guides</h3>
+        <p>Give customers contextual guidance inside the product to help them discover important features, complete key actions and uncover the next useful capability.</p>
+        <p class="impact">It shortens the path to value and creates more opportunities for customers to adopt the capabilities they already own.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card-section">
+    <div class="solution-card">
+      <div class="solution-visual">
+        <img src="assets/customer-led-content-visual.svg" alt="Customer-led content visual">
+      </div>
+      <div class="solution-copy">
+        <h3>Customer-led Content</h3>
+        <p>Work with customers to turn their experience into long-form content — practitioner blogs, playbooks, white papers and other perspectives that put real customer expertise in front of your audience.</p>
+        <p class="impact">It brings credible customer voices into your brand, builds authority and gives customers valuable platforms to share their experience and expertise.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="bottom">
+  <div class="container">
+    <div class="eyebrow">WHERE TO START</div>
+    <h2>Know the customer opportunity. Then build the right programme.</h2>
+    <p>The Customer Growth Audit helps identify where the relationship is today and which post-sale motion should come next.</p>
+    <a class="bottom-link" href="contact.html">Talk to us →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© 2026 Retentio · Turn your happiest customers into your next growth channel.</div>
+</footer>
+</body>
+</html>
