@@ -476,6 +476,36 @@
 
     .nav-mobile a:hover { background: #F5F5FA; }
 
+    .nav-mobile-sub-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A2E;
+      padding: 10px 14px;
+      border: 0;
+      background: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .nav-mobile-sub-toggle:hover { background: #F5F5FA; }
+    .nav-mobile-sub {
+      display: none;
+      flex-direction: column;
+      padding: 2px 0 8px 8px;
+    }
+    .nav-mobile-item.open .nav-mobile-sub { display: flex; }
+    .nav-mobile-sub a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #54556e;
+      padding: 8px 14px;
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
       .audit-grid { gap: 36px; }
@@ -799,7 +829,20 @@
       <img src="assets/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio" class="nav-logo-img">
     </a>
     <div class="nav-links">
-      <a href="services.html">Solutions</a>
+      <div class="nav-dropdown">
+        <a href="solutions.html" class="nav-dropdown-toggle">Solutions <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="solutions.html#community">Community</a>
+          <a href="solutions.html#champion-programmes">Champion Programmes</a>
+          <a href="solutions.html#customer-led-content">Customer-led Content</a>
+          <a href="solutions.html#customer-education">Customer Education & Webinars</a>
+          <a href="solutions.html#user-groups-events">User Groups & Events</a>
+          <a href="solutions.html#customer-stories">Customer Stories & Case Studies</a>
+          <a href="solutions.html#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+          <a href="solutions.html#win-back">Win-back & Re-engagement</a>
+          <a href="solutions.html#in-product-guides">In-Product Guides</a>
+        </div>
+      </div>
       <a href="resources.html">Resources</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -815,7 +858,20 @@
 
 <!-- Mobile nav -->
 <div class="nav-mobile" id="mobileNav">
-  <a href="services.html">Solutions</a>
+  <div class="nav-mobile-item">
+    <button type="button" class="nav-mobile-sub-toggle" aria-expanded="false">Solutions <span class="nav-caret" aria-hidden="true">▾</span></button>
+    <div class="nav-mobile-sub">
+      <a href="solutions.html#community">Community</a>
+      <a href="solutions.html#champion-programmes">Champion Programmes</a>
+      <a href="solutions.html#customer-led-content">Customer-led Content</a>
+      <a href="solutions.html#customer-education">Customer Education & Webinars</a>
+      <a href="solutions.html#user-groups-events">User Groups & Events</a>
+      <a href="solutions.html#customer-stories">Customer Stories & Case Studies</a>
+      <a href="solutions.html#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+      <a href="solutions.html#win-back">Win-back & Re-engagement</a>
+      <a href="solutions.html#in-product-guides">In-Product Guides</a>
+    </div>
+  </div>
   <a href="resources.html">Resources</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
@@ -1198,6 +1254,35 @@
     if (nav && toggle && !nav.contains(e.target) && !toggle.contains(e.target)) {
       nav.classList.remove('open');
     }
+    document.querySelectorAll('.nav-dropdown').forEach(function(drop) {
+      if (!drop.contains(e.target)) drop.classList.remove('open');
+    });
+  });
+
+  document.querySelectorAll('.nav-dropdown-toggle').forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const links = document.querySelector('.nav-links');
+      if (!links || window.getComputedStyle(links).display === 'none') return;
+      e.preventDefault();
+      const drop = toggle.closest('.nav-dropdown');
+      drop.classList.toggle('open');
+    });
+  });
+
+  document.querySelectorAll('.nav-mobile-sub-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const item = btn.closest('.nav-mobile-item');
+      const open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  document.querySelectorAll('#mobileNav a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      document.getElementById('mobileNav').classList.remove('open');
+    });
   });
 
   function handleSubmit(e) {
@@ -1208,8 +1293,9 @@
 
   // Active nav state
   const page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('href') === page) a.classList.add('active');
+  document.querySelectorAll('.nav-links > a, .nav-dropdown-toggle').forEach(a => {
+    const href = a.getAttribute('href');
+    if (href === page || (page === 'solutions.html' && href === 'solutions.html')) a.classList.add('active');
   });
 
   const retainMap = {
