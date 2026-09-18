@@ -1,0 +1,176 @@
+/* Retentio — Contact page */
+
+.nav-links .is-current {
+  color: var(--navy);
+}
+
+.nav-dropdown-menu-compact {
+  min-width: 180px;
+}
+
+.nav-links .nav-dropdown-menu a.is-current {
+  color: var(--navy);
+  background: #f5f5fa;
+}
+
+.about-brand img {
+  width: auto;
+  height: 36px;
+  object-fit: contain;
+}
+
+.contact-hero {
+  padding: 84px 0 56px;
+  background: linear-gradient(180deg, #fbfbfd 0%, #f5f4fa 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-eyebrow {
+  margin: 0 0 18px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #777890;
+}
+
+.contact-heading {
+  margin: 0 0 16px;
+  max-width: 20ch;
+  font-size: clamp(32px, 4.4vw, 48px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+}
+
+.contact-support {
+  margin: 0;
+  max-width: 46em;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.contact-form-section {
+  padding: 64px 0 100px;
+}
+
+.contact-form-wrap {
+  max-width: 720px;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 20px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-field-full {
+  grid-column: 1 / -1;
+}
+
+.contact-field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.contact-required {
+  color: var(--pink);
+}
+
+.contact-field input,
+.contact-field textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.contact-field input:focus,
+.contact-field textarea:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(45, 46, 110, 0.1);
+}
+
+.contact-field input:invalid:not(:placeholder-shown) {
+  border-color: #d9534f;
+}
+
+/* Honeypot — visually hidden, still present in DOM/tab order-safe via tabindex=-1 */
+.contact-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-submit-row {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.contact-submit {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 30px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.contact-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(45, 46, 110, 0.18);
+}
+
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.contact-status {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.contact-status[data-state="success"] { color: #1c8a4e; }
+.contact-status[data-state="error"] { color: #d9534f; }
+
+@media (max-width: 640px) {
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+  .contact-hero { padding: 64px 0 44px; }
+  .contact-form-section { padding: 44px 0 72px; }
+}
