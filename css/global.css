@@ -45,6 +45,9 @@ a{text-decoration:none;color:inherit}
   font-size:13px;font-weight:600;color:#54556e;white-space:nowrap
 }
 .nav-links .nav-dropdown-menu a:hover{background:#f5f5fa;color:var(--navy)}
+.nav-dropdown-menu-compact{min-width:180px}
+.nav-links .is-current{color:var(--navy)}
+.nav-links .nav-dropdown-menu a.is-current{color:var(--navy);background:#f5f5fa}
 .nav-end{display:flex;align-items:center;gap:12px}
 .nav-mobile-toggle{
   display:none;flex-direction:column;gap:5px;cursor:pointer;
