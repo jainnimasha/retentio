@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Retentio | Resources</title>
-  <meta name="description" content="Free resources for B2B SaaS post-sale marketing — prompt frameworks, playbooks and guides from Retentio.">
+  <title>Retentio | Champion Scorecard</title>
+  <meta name="description" content="Score a customer's advocacy readiness and get a personalised Champion Program recommendation from Retentio.">
   <link rel="icon" type="image/png" href="assets/brand/retentio_logo_Square_400x400_transparent.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,120 +82,172 @@
   <header class="resources-hero">
     <div class="container">
       <p class="resources-eyebrow">RESOURCES</p>
-      <h1 class="resources-heading">Practical resources for post-sale growth.</h1>
-      <p class="resources-support">Frameworks, prompts and guides pulled from real post-sale programmes — free to use.</p>
+      <h1 class="resources-heading">Champion Scorecard</h1>
+      <p class="resources-support">Score one customer against five signals to see how advocacy-ready they actually are — and get a personalised recommendation on what to do next.</p>
     </div>
   </header>
 
-  <section class="resources-grid-section">
-    <div class="container resources-grid">
-
-      <article class="resource-card">
-        <div class="resource-card-tag">Free download</div>
-        <h2 class="resource-card-title">20 AI Prompt Frameworks</h2>
-        <p class="resource-card-body">Prompt frameworks for case studies, champion identification, retention campaigns and GTM messaging — built from real customer marketing programmes.</p>
-        <form class="resource-inline-form" data-resource-form>
-          <input type="email" placeholder="Work email address" required aria-label="Work email address">
-          <button type="submit">Get it free →</button>
-        </form>
-        <p class="resource-card-note">No spam · Unsubscribe anytime</p>
-      </article>
-
-      <article class="resource-card">
-        <div class="resource-card-tag">Guide</div>
-        <h2 class="resource-card-title">How It Works</h2>
-        <p class="resource-card-body">A walkthrough of how a Retentio engagement runs — from the first discovery call to the programmes we build and report on.</p>
-        <a class="resource-card-link" href="how-it-works.html">Read the guide →</a>
-      </article>
-
-      <article class="resource-card resource-card-soon">
-        <div class="resource-card-tag">Coming soon</div>
-        <h2 class="resource-card-title">Playbooks &amp; Guides</h2>
-        <p class="resource-card-body">In-depth playbooks on champion programmes, community strategy and lifecycle email — currently in progress.</p>
-        <span class="resource-card-link resource-card-link-disabled">Coming soon</span>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="tools-section">
+  <section class="scorecard-section" id="champion-scorecard">
     <div class="container">
-      <p class="resources-eyebrow">INTERACTIVE TOOLS — ON THE ROADMAP</p>
-      <h2 class="tools-heading">Quick tools we're building next.</h2>
-      <p class="tools-support">Small, practical calculators and assessments — built in priority order, starting with the ones we already use ourselves.</p>
+      <div class="scorecard-panel">
+        <form id="scorecard-form" class="scorecard-form">
 
-      <div class="tools-grid">
+          <div class="scorecard-field scorecard-field-full">
+            <label>How long have they been a customer?</label>
+            <div class="scorecard-tiles" role="radiogroup" aria-label="Tenure">
+              <label class="tile-option">
+                <input type="radio" name="tenure" value="0" checked>
+                <span class="tile-visual"><span class="tile-label">Under 3 months</span><span class="tile-pts">+0</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="tenure" value="1">
+                <span class="tile-visual"><span class="tile-label">3–11 months</span><span class="tile-pts">+1</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="tenure" value="2">
+                <span class="tile-visual"><span class="tile-label">1–2 years</span><span class="tile-pts">+2</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="tenure" value="3">
+                <span class="tile-visual"><span class="tile-label">2+ years</span><span class="tile-pts">+3</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">01</span>
-          <h3 class="tool-card-title">Champion Scorecard</h3>
-          <p class="tool-card-body">Score one customer's advocacy readiness and get a clear next action.</p>
-          <span class="tool-card-status">Planned next</span>
-        </article>
+          <div class="scorecard-field scorecard-field-full">
+            <label>How would you rate their product usage / adoption?</label>
+            <div class="scorecard-tiles" role="radiogroup" aria-label="Usage level">
+              <label class="tile-option">
+                <input type="radio" name="usage" value="0" checked>
+                <span class="tile-visual"><span class="tile-label">Low</span><span class="tile-pts">+0</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="usage" value="2">
+                <span class="tile-visual"><span class="tile-label">Medium</span><span class="tile-pts">+2</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="usage" value="4">
+                <span class="tile-visual"><span class="tile-label">High</span><span class="tile-pts">+4</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">02</span>
-          <h3 class="tool-card-title">RETAIN Health Check</h3>
-          <p class="tool-card-body">A self-assessment across all six RETAIN pillars, with a visual score.</p>
-          <span class="tool-card-status">Planned next</span>
-        </article>
+          <div class="scorecard-field scorecard-field-full">
+            <label>What's their sentiment / NPS?</label>
+            <div class="scorecard-tiles" role="radiogroup" aria-label="Sentiment">
+              <label class="tile-option">
+                <input type="radio" name="sentiment" value="0" checked>
+                <span class="tile-visual"><span class="tile-label">Detractor (0–6)</span><span class="tile-pts">+0</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="sentiment" value="2">
+                <span class="tile-visual"><span class="tile-label">Passive (7–8)</span><span class="tile-pts">+2</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="sentiment" value="4">
+                <span class="tile-visual"><span class="tile-label">Promoter (9–10)</span><span class="tile-pts">+4</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">03</span>
-          <h3 class="tool-card-title">Post-Sale Motion Builder</h3>
-          <p class="tool-card-body">Tell us about your company, get 2-3 recommended programmes back.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <div class="scorecard-field scorecard-field-full">
+            <label>What's the seniority of your main contact?</label>
+            <div class="scorecard-tiles" role="radiogroup" aria-label="Seniority">
+              <label class="tile-option">
+                <input type="radio" name="seniority" value="1" checked>
+                <span class="tile-visual"><span class="tile-label">Individual contributor</span><span class="tile-pts">+1</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="seniority" value="2">
+                <span class="tile-visual"><span class="tile-label">Manager</span><span class="tile-pts">+2</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="seniority" value="3">
+                <span class="tile-visual"><span class="tile-label">Executive / decision-maker</span><span class="tile-pts">+3</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">04</span>
-          <h3 class="tool-card-title">Advocacy ROI Calculator</h3>
-          <p class="tool-card-body">Estimate the revenue impact of a customer advocacy programme.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <div class="scorecard-field scorecard-field-full">
+            <label>What's their company's ARR? <span class="scorecard-context-note">(context only — doesn't affect the score)</span></label>
+            <div class="scorecard-tiles" role="radiogroup" aria-label="Company ARR">
+              <label class="tile-option">
+                <input type="radio" name="arr" value="Under $1M" checked>
+                <span class="tile-visual"><span class="tile-label">Under $1M</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="arr" value="$1M–$10M">
+                <span class="tile-visual"><span class="tile-label">$1M–$10M</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="arr" value="$10M–$50M">
+                <span class="tile-visual"><span class="tile-label">$10M–$50M</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="radio" name="arr" value="$50M+">
+                <span class="tile-visual"><span class="tile-label">$50M+</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">05</span>
-          <h3 class="tool-card-title">Customer Growth Audit Calculator</h3>
-          <p class="tool-card-body">See the revenue upside of improving retention and expansion.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <div class="scorecard-field scorecard-field-full">
+            <label>Engagement signals — select anything that's happened</label>
+            <div class="scorecard-tiles">
+              <label class="tile-option">
+                <input type="checkbox" name="engagement" value="1">
+                <span class="tile-visual"><span class="tile-label">Attended a webinar or event</span><span class="tile-pts">+1</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="checkbox" name="engagement" value="1">
+                <span class="tile-visual"><span class="tile-label">Referred another customer</span><span class="tile-pts">+1</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="checkbox" name="engagement" value="1">
+                <span class="tile-visual"><span class="tile-label">Active in your community / user group</span><span class="tile-pts">+1</span></span>
+              </label>
+              <label class="tile-option">
+                <input type="checkbox" name="engagement" value="1">
+                <span class="tile-visual"><span class="tile-label">Responded positively to a review / reference request</span><span class="tile-pts">+1</span></span>
+              </label>
+            </div>
+          </div>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">06</span>
-          <h3 class="tool-card-title">Post-Sale Maturity Benchmark</h3>
-          <p class="tool-card-body">See how your post-sale motion compares to companies at your stage.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <div class="scorecard-actions">
+            <button type="submit" class="scorecard-submit">Continue →</button>
+            <button type="button" class="scorecard-reset" id="scorecard-reset">Reset</button>
+          </div>
+        </form>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">07</span>
-          <h3 class="tool-card-title">Community Readiness Quiz</h3>
-          <p class="tool-card-body">An honest read on whether it's time to launch a community yet.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+        <div class="scorecard-result" id="scorecard-result" aria-live="polite">
+          <p class="scorecard-result-placeholder" id="scorecard-placeholder">Fill out the fields and click "Continue" to get your Champion Program recommendation.</p>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">08</span>
-          <h3 class="tool-card-title">Win-back Segment Calculator</h3>
-          <p class="tool-card-body">Prioritise which re-engagement tactics to run first, and why.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <form class="scorecard-leadgate" id="scorecard-leadgate" hidden>
+            <p class="scorecard-leadgate-intro">Almost there — where should we send your Champion Program recommendation?</p>
+            <div class="scorecard-field">
+              <label for="lead-email">Work email <span class="contact-required">*</span></label>
+              <input type="email" id="lead-email" name="lead_email" required>
+            </div>
+            <div class="scorecard-field">
+              <label for="lead-phone">Phone (optional)</label>
+              <input type="tel" id="lead-phone" name="lead_phone">
+            </div>
+            <button type="submit" class="scorecard-submit" id="scorecard-send-otp-btn">Send verification code →</button>
+            <p class="scorecard-status" id="scorecard-lead-status"></p>
+          </form>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">09</span>
-          <h3 class="tool-card-title">RETAIN Pillar Prioritisation Tool</h3>
-          <p class="tool-card-body">Rank the six pillars against your real constraints, get a build order.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
+          <form class="scorecard-leadgate" id="scorecard-otp-form" hidden>
+            <p class="scorecard-leadgate-intro">Enter the 6-digit code we just emailed you</p>
+            <div class="scorecard-field">
+              <label for="otp-code">Verification code</label>
+              <input type="text" id="otp-code" name="otp_code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required>
+            </div>
+            <button type="submit" class="scorecard-submit">Verify & Get My Champion Program →</button>
+            <button type="button" class="scorecard-reset" id="scorecard-resend-otp">Resend code</button>
+            <p class="scorecard-status" id="scorecard-otp-status"></p>
+          </form>
 
-        <article class="tool-card">
-          <span class="tool-card-rank">10</span>
-          <h3 class="tool-card-title">Content Repurposing Planner</h3>
-          <p class="tool-card-body">Turn one piece of content into a multi-channel distribution plan.</p>
-          <span class="tool-card-status">Coming soon</span>
-        </article>
-
+          <div class="scorecard-final" id="scorecard-final" hidden></div>
+        </div>
       </div>
     </div>
   </section>
@@ -229,9 +281,7 @@
       </div>
       <div class="footer-col">
         <h3>Resources</h3>
-        <a href="how-it-works.html">How it works</a>
-        <a href="resources.html">Free prompt library</a>
-        <a href="resources.html">Playbooks &amp; guides</a>
+        <a href="resources.html">Champion Scorecard</a>
       </div>
       <div class="footer-col">
         <h3>Company</h3>
