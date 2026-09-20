@@ -1,25 +1,17 @@
 // api/send-otp.js
 // Vercel serverless function — generates a 6-digit verification code,
-// stores it in Redis (via the Upstash Redis integration connected through
-// Vercel's Storage tab) with a 10-minute expiry, and emails it via Resend.
+// stores it in Supabase's otp_codes table (upserted by email, so each new
+// request replaces any previous code for that address) with a 10-minute
+// expiry, and emails it via Resend.
 //
-// Required environment variables (auto-injected once you connect an Upstash
-// Redis database to this project via Vercel → Storage → Create Database):
-//   KV_REST_API_URL, KV_REST_API_TOKEN
-// Plus the existing Resend variables:
+// Required environment variables:
+//   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — same project used everywhere else
 //   RESEND_API_KEY, CONTACT_FROM_EMAIL
 
 const crypto = require('crypto');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const OTP_TTL_SECONDS = 600; // 10 minutes
-
-async function redisSetex(baseUrl, token, key, seconds, value) {
-  const url = `${baseUrl}/setex/${encodeURIComponent(key)}/${seconds}/${encodeURIComponent(value)}`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-  if (!res.ok) throw new Error('Redis SETEX failed: ' + (await res.text()));
-  return res.json();
-}
+const OTP_TTL_MINUTES = 10;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -42,21 +34,44 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'A valid email is required.' });
   }
 
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
 
-  if (!kvUrl || !kvToken || !resendKey || !fromEmail) {
-    console.error('Missing KV_REST_API_URL, KV_REST_API_TOKEN, RESEND_API_KEY or CONTACT_FROM_EMAIL env vars');
+  if (!supabaseUrl || !serviceKey || !resendKey || !fromEmail) {
+    console.error('Missing SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY or CONTACT_FROM_EMAIL env vars');
     return res.status(500).json({ error: 'Server is not configured yet.' });
   }
 
   const code = crypto.randomInt(100000, 999999).toString();
-  const record = JSON.stringify({ code: code, attempts: 0 });
+  const expiresAt = new Date(Date.now() + OTP_TTL_MINUTES * 60 * 1000).toISOString();
 
+  // Upsert by email: replaces any previous code for this address.
+  // Requires the UNIQUE constraint on otp_codes.email (see migration_otp.sql).
   try {
-    await redisSetex(kvUrl, kvToken, `otp:${email}`, OTP_TTL_SECONDS, record);
+    const upsertRes = await fetch(`${supabaseUrl}/rest/v1/otp_codes`, {
+      method: 'POST',
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal'
+      },
+      body: JSON.stringify({
+        email: email,
+        code: code,
+        attempts: 0,
+        expires_at: expiresAt,
+        created_at: new Date().toISOString()
+      })
+    });
+
+    if (!upsertRes.ok) {
+      const errText = await upsertRes.text();
+      console.error('Supabase OTP upsert failed:', upsertRes.status, errText);
+      return res.status(500).json({ error: 'Could not generate a code right now.' });
+    }
   } catch (err) {
     console.error('Failed to store OTP:', err);
     return res.status(500).json({ error: 'Could not generate a code right now.' });
@@ -73,7 +88,7 @@ module.exports = async function handler(req, res) {
         from: `Retentio <${fromEmail}>`,
         to: [email],
         subject: `Your verification code: ${code}`,
-        html: `<p>Your Retentio Champion Scorecard verification code is:</p><p style="font-size:28px;font-weight:800;letter-spacing:0.1em">${code}</p><p>This code expires in 10 minutes.</p>`
+        html: `<p>Your Retentio Champion Scorecard verification code is:</p><p style="font-size:28px;font-weight:800;letter-spacing:0.1em">${code}</p><p>This code expires in ${OTP_TTL_MINUTES} minutes.</p>`
       })
     });
 

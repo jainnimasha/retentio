@@ -1,44 +1,59 @@
 // api/champion-scorecard.js
-// Vercel serverless function — verifies the OTP code sent by api/send-otp.js,
-// then generates a personalised "Champion Program" recommendation via
-// Anthropic's Claude API, emails the lead to Retentio via Resend, and
-// returns the generated recommendation. No LLM call happens unless the OTP
-// check passes, so a submission can't burn API cost without a verified email.
+// Vercel serverless function — verifies the OTP code (stored in Supabase's
+// otp_codes table by api/send-otp.js), then generates a personalised
+// "Champion Program" recommendation via Anthropic's Claude API, emails the
+// lead to Retentio via Resend, and returns the generated recommendation.
+// No LLM call happens unless the OTP check passes, so a submission can't
+// burn API cost without a verified email.
 //
-// Required environment variables (Vercel → Project → Settings → Environment Variables):
-//   KV_REST_API_URL, KV_REST_API_TOKEN — same Upstash Redis integration used by send-otp.js
-//   ANTHROPIC_API_KEY — from https://console.anthropic.com (new signup, separate
-//                        from Resend). This is a paid API — each call to a Haiku-class
-//                        model costs a small fraction of a cent, but it is not free
-//                        the way an unlimited client-side calculator is.
-//   RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL — reused from the
-//                        contact form setup; no new email infrastructure needed.
+// NOTE: this function does not yet write to leads/tool_runs/tool_responses/
+// recommendations — that's Task 6 (the shared Resources submission flow),
+// not yet built. Today it only verifies the OTP and emails the lead.
+//
+// Required environment variables:
+//   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — same project used everywhere else
+//   ANTHROPIC_API_KEY — from https://console.anthropic.com
+//   RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CLAUDE_MODEL = 'claude-haiku-4-5-20251001';
 const MAX_OTP_ATTEMPTS = 5;
-const OTP_RETRY_TTL_SECONDS = 300; // 5 minutes, refreshed on each failed attempt
 
-async function redisGet(baseUrl, token, key) {
-  const res = await fetch(`${baseUrl}/get/${encodeURIComponent(key)}`, {
-    headers: { Authorization: `Bearer ${token}` }
+async function supabaseGet(supabaseUrl, serviceKey, path) {
+  const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`
+    }
   });
-  if (!res.ok) throw new Error('Redis GET failed: ' + (await res.text()));
-  const data = await res.json();
-  return data.result; // null if key doesn't exist
+  if (!res.ok) throw new Error('Supabase GET failed: ' + (await res.text()));
+  return res.json();
 }
 
-async function redisSetex(baseUrl, token, key, seconds, value) {
-  const url = `${baseUrl}/setex/${encodeURIComponent(key)}/${seconds}/${encodeURIComponent(value)}`;
-  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
-  if (!res.ok) throw new Error('Redis SETEX failed: ' + (await res.text()));
+async function supabasePatch(supabaseUrl, serviceKey, path, body) {
+  const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+    method: 'PATCH',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal'
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error('Supabase PATCH failed: ' + (await res.text()));
 }
 
-async function redisDel(baseUrl, token, key) {
-  const res = await fetch(`${baseUrl}/del/${encodeURIComponent(key)}`, {
-    headers: { Authorization: `Bearer ${token}` }
+async function supabaseDelete(supabaseUrl, serviceKey, path) {
+  const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+    method: 'DELETE',
+    headers: {
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
+      Prefer: 'return=minimal'
+    }
   });
-  if (!res.ok) throw new Error('Redis DEL failed: ' + (await res.text()));
+  if (!res.ok) throw new Error('Supabase DELETE failed: ' + (await res.text()));
 }
 
 module.exports = async function handler(req, res) {
@@ -76,46 +91,51 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'A 6-digit verification code is required.' });
   }
 
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const anthropicKey = process.env.ANTHROPIC_API_KEY;
   const resendKey = process.env.RESEND_API_KEY;
   const toEmail = process.env.CONTACT_TO_EMAIL;
   const fromEmail = process.env.CONTACT_FROM_EMAIL;
 
-  if (!kvUrl || !kvToken || !anthropicKey || !resendKey || !toEmail || !fromEmail) {
+  if (!supabaseUrl || !serviceKey || !anthropicKey || !resendKey || !toEmail || !fromEmail) {
     console.error('Missing one or more required env vars for champion-scorecard');
     return res.status(500).json({ error: 'Server is not configured yet.' });
   }
 
   // ── Verify the OTP before spending anything on the LLM call ──────────
-  const otpKey = `otp:${email}`;
+  const otpPath = `otp_codes?email=eq.${encodeURIComponent(email)}`;
   let record;
   try {
-    const raw = await redisGet(kvUrl, kvToken, otpKey);
-    if (!raw) {
+    const rows = await supabaseGet(supabaseUrl, serviceKey, otpPath + '&select=*');
+    if (!rows || rows.length === 0) {
       return res.status(400).json({ error: 'That code has expired. Please request a new one.' });
     }
-    record = JSON.parse(raw);
+    record = rows[0];
   } catch (err) {
     console.error('Failed to read OTP record:', err);
     return res.status(500).json({ error: 'Could not verify your code right now.' });
   }
 
+  if (new Date(record.expires_at).getTime() < Date.now()) {
+    await supabaseDelete(supabaseUrl, serviceKey, otpPath).catch(() => {});
+    return res.status(400).json({ error: 'That code has expired. Please request a new one.' });
+  }
+
   if (record.attempts >= MAX_OTP_ATTEMPTS) {
-    await redisDel(kvUrl, kvToken, otpKey).catch(() => {});
+    await supabaseDelete(supabaseUrl, serviceKey, otpPath).catch(() => {});
     return res.status(400).json({ error: 'Too many incorrect attempts. Please request a new code.' });
   }
 
   if (record.code !== otp) {
-    record.attempts += 1;
-    await redisSetex(kvUrl, kvToken, otpKey, OTP_RETRY_TTL_SECONDS, JSON.stringify(record)).catch(() => {});
-    const remaining = MAX_OTP_ATTEMPTS - record.attempts;
+    const newAttempts = record.attempts + 1;
+    await supabasePatch(supabaseUrl, serviceKey, otpPath, { attempts: newAttempts }).catch(() => {});
+    const remaining = MAX_OTP_ATTEMPTS - newAttempts;
     return res.status(400).json({ error: `Incorrect code. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.` });
   }
 
   // Correct — the code is single-use, so remove it immediately.
-  await redisDel(kvUrl, kvToken, otpKey).catch((err) => console.error('Failed to delete used OTP:', err));
+  await supabaseDelete(supabaseUrl, serviceKey, otpPath).catch((err) => console.error('Failed to delete used OTP:', err));
 
   // ── OTP verified — now it's safe to spend on the LLM call ────────────
   const engagementText = engagementSignals.length ? engagementSignals.join('; ') : 'None selected';
@@ -192,6 +212,7 @@ Write directly to the customer marketer reading this, in second person ("you"), 
       <p><strong>ARR band:</strong> ${escapeHtml(arr)}</p>
       <p><strong>Engagement signals:</strong> ${escapeHtml(engagementText)}</p>
       <p><strong>Generated recommendation:</strong><br>${escapeHtml(recommendation).replace(/\n/g, '<br>')}</p>
+      <p style="color:#888;font-size:12px">Not yet stored in leads/tool_runs \u2014 Task 6 pending.</p>
     `;
 
     await fetch('https://api.resend.com/emails', {
