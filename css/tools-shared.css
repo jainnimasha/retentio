@@ -1,5 +1,5 @@
 /* Retentio — Standalone tool page styles (shared pattern across all Resources tools) */
-
+[hidden] { display: none !important; }
 .nav-links .is-current { color: var(--navy); }
 .nav-dropdown-menu-compact { min-width: 180px; }
 .about-brand img { width: auto; height: 36px; object-fit: contain; }

@@ -1,17 +1,41 @@
 // api/send-otp.js
 // Vercel serverless function — generates a 6-digit verification code,
-// stores it in Supabase's otp_codes table (upserted by email, so each new
-// request replaces any previous code for that address) with a 10-minute
-// expiry, and emails it via Resend.
+// stores it in Supabase's otp_codes table (upserted by email), and emails
+// it via Resend. FIRST checks whether this email has already completed
+// ANY Resources tool before — if so, refuses to send a new code and tells
+// the frontend to show a "talk to us" message instead. This is a deliberate
+// business rule: one email gets one free self-serve tool report, ever;
+// repeat interest goes through a real conversation, not another AI call.
 //
 // Required environment variables:
-//   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — same project used everywhere else
+//   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
 //   RESEND_API_KEY, CONTACT_FROM_EMAIL
 
 const crypto = require('crypto');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const OTP_TTL_MINUTES = 10;
+
+async function supabaseGet(supabaseUrl, serviceKey, path) {
+  const res = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+    headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` }
+  });
+  if (!res.ok) throw new Error('Supabase GET failed: ' + (await res.text()));
+  return res.json();
+}
+
+async function hasCompletedAnyTool(supabaseUrl, serviceKey, email) {
+  const leads = await supabaseGet(supabaseUrl, serviceKey, `leads?email=eq.${encodeURIComponent(email)}&select=id`);
+  if (!leads || leads.length === 0) return false; // never seen this email at all
+
+  const leadId = leads[0].id;
+  const runs = await supabaseGet(
+    supabaseUrl,
+    serviceKey,
+    `tool_runs?lead_id=eq.${leadId}&status=eq.completed&select=id&limit=1`
+  );
+  return runs && runs.length > 0;
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -44,13 +68,27 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'Server is not configured yet.' });
   }
 
+  // ── Business rule: one email = one completed tool, ever ──────────────
+  try {
+    const alreadyDone = await hasCompletedAnyTool(supabaseUrl, serviceKey, email);
+    if (alreadyDone) {
+      return res.status(200).json({
+        alreadyLead: true,
+        message: "We've already got your details on file — our team would love to walk you through a deeper audit personally rather than another automated report."
+      });
+    }
+  } catch (err) {
+    // If this check itself fails, fail OPEN (let them proceed) rather than
+    // blocking a legitimate first-time visitor because of a transient
+    // database hiccup. Logged so it doesn't go unnoticed.
+    console.error('Failed to check prior tool completion (proceeding anyway):', err);
+  }
+
   const code = crypto.randomInt(100000, 999999).toString();
   const expiresAt = new Date(Date.now() + OTP_TTL_MINUTES * 60 * 1000).toISOString();
 
-  // Upsert by email: replaces any previous code for this address.
-  // Requires the UNIQUE constraint on otp_codes.email (see migration_otp.sql).
   try {
-    const upsertRes = await fetch(`${supabaseUrl}/rest/v1/otp_codes`, {
+    const upsertRes = await fetch(`${supabaseUrl}/rest/v1/otp_codes?on_conflict=email`, {
       method: 'POST',
       headers: {
         apikey: serviceKey,
