@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retentio | Champion Scorecard</title>
+  <meta name="description" content="Score a customer's advocacy readiness and get a personalised Champion Program recommendation from Retentio.">
+  <link rel="icon" type="image/png" href="assets/brand/retentio_logo_Square_400x400_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/champion-scorecard.css">
+</head>
+<body class="page-champion-scorecard">
+
+<nav class="nav" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="brand about-brand" href="index.html">
+      <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio">
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="solutions.html" class="nav-dropdown-toggle">Solutions <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="solutions.html#community">Community</a>
+          <a href="solutions.html#champion-programmes">Champion Programmes</a>
+          <a href="solutions.html#customer-led-content">Customer-led Content</a>
+          <a href="solutions.html#customer-education">Customer Education & Webinars</a>
+          <a href="solutions.html#user-groups-events">User Groups & Events</a>
+          <a href="solutions.html#customer-stories">Customer Stories & Case Studies</a>
+          <a href="solutions.html#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+          <a href="solutions.html#win-back">Win-back & Re-engagement</a>
+          <a href="solutions.html#in-product-guides">In-Product Guides</a>
+        </div>
+      </div>
+      <a href="resources.html" class="is-current" aria-current="page">Resources</a>
+      <div class="nav-dropdown">
+        <a href="about.html" class="nav-dropdown-toggle">Company <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu nav-dropdown-menu-compact">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="contact.html">Talk to us →</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="tool-hero">
+    <div class="container">
+      <p class="tool-eyebrow">CHAMPION SCORECARD</p>
+      <h1 class="tool-heading">Which customer should you turn into an advocate first?</h1>
+      <p class="tool-support">Score one customer against five signals to see how advocacy-ready they actually are — and get a personalised recommendation on what to do next.</p>
+      <p class="tool-repeat-note">Already used one of our tools before? You'll be offered a personal audit instead of a second automated report — one free report per person.</p>
+    </div>
+  </header>
+
+  <section class="tool-section">
+    <div class="container">
+      <div class="tool-panel">
+        <form id="scorecard-form" class="tool-form">
+
+          <div class="tool-field tool-field-full">
+            <label>How long have they been a customer?</label>
+            <div class="tool-tiles" role="radiogroup" aria-label="Tenure">
+              <label class="tile-option"><input type="radio" name="tenure" value="0" checked><span class="tile-visual"><span class="tile-label">Under 3 months</span><span class="tile-pts">+0</span></span></label>
+              <label class="tile-option"><input type="radio" name="tenure" value="1"><span class="tile-visual"><span class="tile-label">3–11 months</span><span class="tile-pts">+1</span></span></label>
+              <label class="tile-option"><input type="radio" name="tenure" value="2"><span class="tile-visual"><span class="tile-label">1–2 years</span><span class="tile-pts">+2</span></span></label>
+              <label class="tile-option"><input type="radio" name="tenure" value="3"><span class="tile-visual"><span class="tile-label">2+ years</span><span class="tile-pts">+3</span></span></label>
+            </div>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>How would you rate their product usage / adoption?</label>
+            <div class="tool-tiles" role="radiogroup" aria-label="Usage level">
+              <label class="tile-option"><input type="radio" name="usage" value="0" checked><span class="tile-visual"><span class="tile-label">Low</span><span class="tile-pts">+0</span></span></label>
+              <label class="tile-option"><input type="radio" name="usage" value="2"><span class="tile-visual"><span class="tile-label">Medium</span><span class="tile-pts">+2</span></span></label>
+              <label class="tile-option"><input type="radio" name="usage" value="4"><span class="tile-visual"><span class="tile-label">High</span><span class="tile-pts">+4</span></span></label>
+            </div>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>What's their sentiment / NPS?</label>
+            <div class="tool-tiles" role="radiogroup" aria-label="Sentiment">
+              <label class="tile-option"><input type="radio" name="sentiment" value="0" checked><span class="tile-visual"><span class="tile-label">Detractor (0–6)</span><span class="tile-pts">+0</span></span></label>
+              <label class="tile-option"><input type="radio" name="sentiment" value="2"><span class="tile-visual"><span class="tile-label">Passive (7–8)</span><span class="tile-pts">+2</span></span></label>
+              <label class="tile-option"><input type="radio" name="sentiment" value="4"><span class="tile-visual"><span class="tile-label">Promoter (9–10)</span><span class="tile-pts">+4</span></span></label>
+            </div>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>What's their company's ARR? <span class="tool-context-note">(context only — doesn't affect the score)</span></label>
+            <div class="tool-tiles" role="radiogroup" aria-label="Company ARR">
+              <label class="tile-option"><input type="radio" name="arr" value="Under $1M" checked><span class="tile-visual"><span class="tile-label">Under $1M</span></span></label>
+              <label class="tile-option"><input type="radio" name="arr" value="$1M–$10M"><span class="tile-visual"><span class="tile-label">$1M–$10M</span></span></label>
+              <label class="tile-option"><input type="radio" name="arr" value="$10M–$50M"><span class="tile-visual"><span class="tile-label">$10M–$50M</span></span></label>
+              <label class="tile-option"><input type="radio" name="arr" value="$50M+"><span class="tile-visual"><span class="tile-label">$50M+</span></span></label>
+            </div>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>Engagement signals — select anything that's happened</label>
+            <div class="tool-tiles">
+              <label class="tile-option"><input type="checkbox" name="engagement" value="1"><span class="tile-visual"><span class="tile-label">Attended a webinar or event</span><span class="tile-pts">+1</span></span></label>
+              <label class="tile-option"><input type="checkbox" name="engagement" value="1"><span class="tile-visual"><span class="tile-label">Referred another customer</span><span class="tile-pts">+1</span></span></label>
+              <label class="tile-option"><input type="checkbox" name="engagement" value="1"><span class="tile-visual"><span class="tile-label">Active in your community / user group</span><span class="tile-pts">+1</span></span></label>
+              <label class="tile-option"><input type="checkbox" name="engagement" value="1"><span class="tile-visual"><span class="tile-label">Responded positively to a review / reference request</span><span class="tile-pts">+1</span></span></label>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button type="submit" class="tool-submit">Continue →</button>
+            <button type="button" class="tool-reset" id="tool-reset">Reset</button>
+          </div>
+        </form>
+
+        <div class="tool-result-col" id="tool-result">
+          <p class="tool-result-placeholder" id="tool-placeholder">Fill out the fields and click "Continue" to get your Champion Program recommendation.</p>
+
+          <form class="tool-leadgate" id="tool-leadgate" hidden>
+            <p class="tool-leadgate-intro">Almost there — where should we send your Champion Program recommendation?</p>
+            <div class="tool-field"><label for="lead-email">Work email <span class="required">*</span></label><input type="email" id="lead-email" required></div>
+            <div class="tool-field"><label for="lead-phone">Phone (optional)</label><input type="tel" id="lead-phone"></div>
+            <button type="submit" class="tool-submit" id="send-otp-btn">Send verification code →</button>
+            <p class="tool-status" id="lead-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="tool-otp-form" hidden>
+            <p class="tool-leadgate-intro">Enter the 6-digit code we just emailed you</p>
+            <div class="tool-field"><label for="otp-code">Verification code</label><input type="text" id="otp-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required></div>
+            <button type="submit" class="tool-submit">Verify & Get My Champion Program →</button>
+            <button type="button" class="tool-reset" id="resend-btn">Resend code</button>
+            <p class="tool-status" id="otp-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="already-lead-form" hidden>
+            <p class="tool-leadgate-intro" id="already-lead-message"></p>
+            <a href="contact.html" class="tool-submit tool-talk-link">Talk to us →</a>
+          </form>
+
+          <div class="tool-final" id="tool-final" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">Turn your happiest customers into your next growth channel.</p>
+        <a href="mailto:contact@retentio.in" class="footer-email">contact@retentio.in</a>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <a href="resources.html">All tools</a>
+        <a href="champion-scorecard.html">Champion Scorecard</a>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Retentio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/champion-scorecard.js"></script>
+</body>
+</html>

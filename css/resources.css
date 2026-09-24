@@ -1,30 +1,14 @@
-/* Retentio — Resources page (Champion Scorecard only) */
+/* Retentio — Resources directory page */
 
-.nav-links .is-current {
-  color: var(--navy);
-}
-
-.nav-dropdown-menu-compact {
-  min-width: 180px;
-}
-
-.nav-links .nav-dropdown-menu a.is-current {
-  color: var(--navy);
-  background: #f5f5fa;
-}
-
-.about-brand img {
-  width: auto;
-  height: 36px;
-  object-fit: contain;
-}
+.nav-links .is-current { color: var(--navy); }
+.nav-dropdown-menu-compact { min-width: 180px; }
+.about-brand img { width: auto; height: 36px; object-fit: contain; }
 
 .resources-hero {
   padding: 84px 0 56px;
   background: linear-gradient(180deg, #fbfbfd 0%, #f5f4fa 100%);
   border-bottom: 1px solid var(--line);
 }
-
 .resources-eyebrow {
   margin: 0 0 18px;
   font-size: 11px;
@@ -33,291 +17,91 @@
   text-transform: uppercase;
   color: #777890;
 }
-
 .resources-heading {
   margin: 0 0 16px;
-  max-width: 24ch;
+  max-width: 22ch;
   font-size: clamp(32px, 4.4vw, 48px);
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -0.045em;
   color: var(--ink);
 }
-
 .resources-support {
   margin: 0;
-  max-width: 46em;
+  max-width: 640px;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.7;
 }
 
-/* ── Champion Scorecard ───────────────────────────────────── */
-.scorecard-section {
-  padding: 72px 0 100px;
-}
-
-.scorecard-panel {
+.tools-grid-section { padding: 64px 0 100px; }
+.tools-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 36px;
-  box-shadow: 0 12px 32px rgba(45, 46, 110, 0.05);
-}
-
-.scorecard-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  align-content: start;
 }
 
-.scorecard-field {
+.tool-card {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-}
-
-.scorecard-field-full {
-  grid-column: 1 / -1;
-}
-
-.scorecard-field label {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.scorecard-context-note {
-  font-weight: 500;
-  color: #9a9bb0;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.contact-required {
-  color: var(--pink);
-}
-
-.scorecard-tiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tile-option {
-  cursor: pointer;
-}
-
-.tile-option input {
-  position: absolute;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-
-.tile-visual {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border: 1.5px solid var(--line);
-  border-radius: 10px;
   background: #fff;
-  transition: all 0.15s ease;
-}
-
-.tile-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-}
-
-.tile-pts {
-  font-size: 11px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: #f0eeff;
-  color: var(--navy);
-}
-
-.tile-option:hover .tile-visual {
-  border-color: var(--navy);
-}
-
-.tile-option input:checked + .tile-visual {
-  border-color: var(--navy);
-  background: var(--navy);
-}
-
-.tile-option input:checked + .tile-visual .tile-label {
-  color: #fff;
-}
-
-.tile-option input:checked + .tile-visual .tile-pts {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-}
-
-.tile-option input:focus-visible + .tile-visual {
-  outline: 2px solid var(--navy);
-  outline-offset: 2px;
-}
-
-.scorecard-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-top: 6px;
-  flex-wrap: wrap;
-}
-
-.scorecard-submit {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--navy);
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 14px 30px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-}
-
-.scorecard-submit:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(45, 46, 110, 0.18);
-}
-
-.scorecard-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.scorecard-reset {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.scorecard-result {
-  border-left: 1px solid var(--line);
-  padding-left: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.scorecard-result-placeholder {
-  margin: 0;
-  color: #9a9bb0;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.scorecard-leadgate {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.scorecard-leadgate-intro {
-  margin: 0;
-  font-size: 14.5px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.scorecard-leadgate .scorecard-field input {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13.5px;
-  padding: 10px 12px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  outline: none;
+  border-radius: 18px;
+  padding: 26px 22px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-
-.scorecard-leadgate .scorecard-field input:focus {
+.tool-card-live { cursor: pointer; }
+.tool-card-live:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(45, 46, 110, 0.1);
   border-color: var(--navy);
-  box-shadow: 0 0 0 3px rgba(45, 46, 110, 0.1);
 }
+.tool-card-soon { opacity: 0.7; }
 
-.scorecard-status {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.scorecard-status[data-state="loading"] { color: var(--muted); }
-.scorecard-status[data-state="error"] { color: #d9534f; }
-.scorecard-status[data-state="success"] { color: #1c8a4e; }
-
-.scorecard-tier {
-  display: inline-flex;
+.tool-card-status {
   align-self: flex-start;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 6px 14px;
+  color: #9a9bb0;
+  background: #f2f2f6;
+  padding: 4px 10px;
   border-radius: 999px;
   margin-bottom: 14px;
 }
+.tool-card-status-live {
+  color: #fff;
+  background: var(--navy);
+}
 
-.scorecard-tier-not-ready { background: #fdeceb; color: #c0392b; }
-.scorecard-tier-nurture { background: #fff6e0; color: #9a7b12; }
-.scorecard-tier-ready { background: #e8f7ee; color: #1c8a4e; }
-
-.scorecard-score {
+.tool-card-title {
+  margin: 0 0 10px;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.tool-card-body {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.65;
+  flex-grow: 1;
+}
+.tool-card-link {
   font-size: 13px;
   font-weight: 700;
-  color: var(--muted);
-  margin: 0 0 14px;
+  color: var(--navy);
 }
 
-.scorecard-final-body {
-  font-size: 14.5px;
-  line-height: 1.8;
-  color: var(--ink);
-  white-space: pre-wrap;
+@media (max-width: 1100px) {
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-@media (max-width: 900px) {
-  .scorecard-panel {
-    grid-template-columns: 1fr;
-  }
-  .scorecard-form {
-    grid-template-columns: 1fr 1fr;
-  }
-  .scorecard-result {
-    border-left: none;
-    border-top: 1px solid var(--line);
-    padding-left: 0;
-    padding-top: 24px;
-  }
-}
-
-@media (max-width: 600px) {
-  .scorecard-form {
-    grid-template-columns: 1fr;
-  }
-  .scorecard-panel {
-    padding: 24px;
-  }
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr; }
   .resources-hero { padding: 64px 0 44px; }
-  .scorecard-section { padding: 44px 0 72px; }
+  .tools-grid-section { padding: 44px 0 72px; }
 }

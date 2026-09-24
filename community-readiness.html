@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retentio | Community Readiness Quiz</title>
+  <meta name="description" content="Should you launch a community now, or not yet? A direct verdict based on your customer health and business signals.">
+  <link rel="icon" type="image/png" href="assets/brand/retentio_logo_Square_400x400_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/tools-shared.css">
+  <style>
+    .checks-grid { display: flex; flex-direction: column; gap: 8px; }
+    .check-option { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink); transition: all 0.15s ease; }
+    .check-option:hover { border-color: var(--navy); }
+    .check-option input { accent-color: var(--navy); width: 15px; height: 15px; flex-shrink: 0; }
+    .check-option.checked { border-color: var(--navy); background: #f5f5fb; }
+    .verdict-badge { display: inline-flex; align-self: flex-start; font-size: 13px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 8px 18px; border-radius: 999px; margin-bottom: 14px; }
+    .verdict-low { background: #fdeceb; color: #c0392b; }
+    .verdict-mid { background: #fff6e0; color: #9a7b12; }
+    .verdict-high { background: #e8f7ee; color: #1c8a4e; }
+    .score-line { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+    .tool-type-box { background: #f5f5fa; border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 13px; line-height: 1.6; color: var(--ink); }
+    .tool-type-box b { color: var(--navy); }
+    .solutions-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+    .solution-tag { font-size: 11.5px; font-weight: 700; background: #f0eeff; color: var(--navy); padding: 6px 12px; border-radius: 999px; }
+  </style>
+</head>
+<body class="page-community-readiness">
+
+<nav class="nav" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="brand about-brand" href="index.html">
+      <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio">
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="solutions.html" class="nav-dropdown-toggle">Solutions <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="solutions.html#community">Community</a>
+          <a href="solutions.html#champion-programmes">Champion Programmes</a>
+          <a href="solutions.html#customer-led-content">Customer-led Content</a>
+          <a href="solutions.html#customer-education">Customer Education & Webinars</a>
+          <a href="solutions.html#user-groups-events">User Groups & Events</a>
+          <a href="solutions.html#customer-stories">Customer Stories & Case Studies</a>
+          <a href="solutions.html#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+          <a href="solutions.html#win-back">Win-back & Re-engagement</a>
+          <a href="solutions.html#in-product-guides">In-Product Guides</a>
+        </div>
+      </div>
+      <a href="resources.html" class="is-current" aria-current="page">Resources</a>
+      <div class="nav-dropdown">
+        <a href="about.html" class="nav-dropdown-toggle">Company <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu nav-dropdown-menu-compact">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="contact.html">Talk to us →</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="tool-hero">
+    <div class="container">
+      <p class="tool-eyebrow">COMMUNITY READINESS QUIZ</p>
+      <h1 class="tool-heading">Should you launch a community now, or not yet?</h1>
+      <p class="tool-support">Five questions about your customer health, scale, and business signals — matched against the exact problems you're trying to solve.</p>
+      <p class="tool-repeat-note">Already used one of our tools before? You'll be offered a personal audit instead of a second automated report — one free report per person.</p>
+    </div>
+  </header>
+
+  <section class="tool-section">
+    <div class="container">
+      <div class="tool-panel">
+        <form id="crq-form" class="tool-form">
+
+          <div class="tool-field tool-field-full">
+            <label>1. How would you describe your customer health today?</label>
+            <select id="q-health">
+              <option value="Strong">Strong — high satisfaction, low churn</option>
+              <option value="Mixed" selected>Mixed — some pockets of dissatisfaction or churn risk</option>
+              <option value="Struggling">Struggling — frequent complaints, high churn, or declining satisfaction</option>
+            </select>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>2. How many customers would this community serve?</label>
+            <select id="q-size">
+              <option value="Under 100">Under 100</option>
+              <option value="100-500" selected>100–500</option>
+              <option value="500-2000">500–2,000</option>
+              <option value="2000+">2,000+</option>
+            </select>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>3. What's your current support ticket volume?</label>
+            <select id="q-tickets">
+              <option value="Low">Low</option>
+              <option value="Moderate" selected>Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>4. Do you have a clear sense of where you're losing revenue (churn, low adoption, etc.) that a community could help address?</label>
+            <select id="q-revenue">
+              <option value="Yes">Yes, clearly</option>
+              <option value="Somewhat" selected>Somewhat</option>
+              <option value="No">Not really</option>
+            </select>
+          </div>
+
+          <div class="tool-field tool-field-full">
+            <label>5. What problem are you trying to address? <span style="font-weight:500;color:#9a9bb0">(select all that apply)</span></label>
+            <div class="checks-grid" id="problem-checks">
+              <label class="check-option"><input type="checkbox" value="High support volume">High support volume</label>
+              <label class="check-option"><input type="checkbox" value="Poor product adoption">Poor product adoption</label>
+              <label class="check-option"><input type="checkbox" value="Low customer engagement">Low customer engagement</label>
+              <label class="check-option"><input type="checkbox" value="Customer retention/churn">Customer retention/churn</label>
+              <label class="check-option"><input type="checkbox" value="Expansion opportunities being missed">Expansion opportunities being missed</label>
+              <label class="check-option"><input type="checkbox" value="Weak customer advocacy">Weak customer advocacy</label>
+              <label class="check-option"><input type="checkbox" value="Limited customer feedback">Limited customer feedback</label>
+              <label class="check-option"><input type="checkbox" value="Customers struggling to learn from each other">Customers struggling to learn from each other</label>
+              <label class="check-option"><input type="checkbox" value="Lack of peer networking">Lack of peer networking</label>
+              <label class="check-option"><input type="checkbox" value="Other">Other</label>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button type="submit" class="tool-submit">Continue →</button>
+            <button type="button" class="tool-reset" id="tool-reset">Reset</button>
+          </div>
+        </form>
+
+        <div class="tool-result-col" id="tool-result">
+          <p class="tool-result-placeholder" id="tool-placeholder">Answer the questions and click "Continue" to get your result.</p>
+
+          <form class="tool-leadgate" id="tool-leadgate" hidden>
+            <p class="tool-leadgate-intro">Almost there — where should we send your Community Readiness result?</p>
+            <div class="tool-field"><label for="lead-email">Work email <span class="required">*</span></label><input type="email" id="lead-email" required></div>
+            <div class="tool-field"><label for="lead-phone">Phone (optional)</label><input type="tel" id="lead-phone"></div>
+            <button type="submit" class="tool-submit" id="send-otp-btn">Send verification code →</button>
+            <p class="tool-status" id="lead-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="tool-otp-form" hidden>
+            <p class="tool-leadgate-intro">Enter the 6-digit code we just emailed you</p>
+            <div class="tool-field"><label for="otp-code">Verification code</label><input type="text" id="otp-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required></div>
+            <button type="submit" class="tool-submit">Verify & Get My Result →</button>
+            <button type="button" class="tool-reset" id="resend-btn">Resend code</button>
+            <p class="tool-status" id="otp-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="already-lead-form" hidden>
+            <p class="tool-leadgate-intro" id="already-lead-message"></p>
+            <a href="contact.html" class="tool-submit tool-talk-link">Talk to us →</a>
+          </form>
+
+          <div class="tool-final" id="tool-final" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">Turn your happiest customers into your next growth channel.</p>
+        <a href="mailto:contact@retentio.in" class="footer-email">contact@retentio.in</a>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <a href="resources.html">All tools</a>
+        <a href="champion-scorecard.html">Champion Scorecard</a>
+        <a href="retain-health-check.html">RETAIN Health Check</a>
+        <a href="content-repurposing.html">Content Repurposing Check</a>
+        <a href="community-readiness.html">Community Readiness Quiz</a>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Retentio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/community-readiness.js"></script>
+</body>
+</html>

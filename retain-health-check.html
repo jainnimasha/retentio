@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retentio | RETAIN Health Check</title>
+  <meta name="description" content="A six-pillar health check across Relationships, Engagement, Trust, Advocacy, Insights and Nurture.">
+  <link rel="icon" type="image/png" href="assets/brand/retentio_logo_Square_400x400_transparent.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/tools-shared.css">
+  <style>
+    .pillar-block { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 14px; margin-bottom: 4px; }
+    .pillar-title { font-size: 13px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--navy); border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+    .pillar-q { display: flex; flex-direction: column; gap: 8px; }
+    .pillar-q label.q-label { font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+    .scale-tile-visual { min-width: 64px; text-align: center; font-size: 11.5px; padding: 9px 11px; }
+    .overall-score { font-size: 44px; font-weight: 800; color: var(--navy); line-height: 1; }
+    .overall-label { font-size: 12px; font-weight: 700; color: #9a9bb0; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .pillar-bars { display: flex; flex-direction: column; gap: 8px; margin: 20px 0; }
+    .pillar-bar-row { display: flex; align-items: center; gap: 10px; }
+    .pillar-bar-name { font-size: 11.5px; font-weight: 700; color: var(--ink); width: 90px; flex-shrink: 0; }
+    .pillar-bar-track { flex: 1; height: 8px; background: #f0eeff; border-radius: 99px; overflow: hidden; }
+    .pillar-bar-fill { height: 100%; background: var(--navy); border-radius: 99px; }
+    .pillar-bar-val { font-size: 11px; font-weight: 700; color: var(--muted); width: 32px; text-align: right; }
+    .ws-callout { display: flex; gap: 10px; margin: 16px 0; flex-wrap: wrap; }
+    .ws-tag { font-size: 11px; font-weight: 800; padding: 5px 11px; border-radius: 999px; }
+    .ws-weak { background: #fdeceb; color: #c0392b; }
+    .ws-strong { background: #e8f7ee; color: #1c8a4e; }
+  </style>
+</head>
+<body class="page-retain-health-check">
+
+<nav class="nav" aria-label="Primary">
+  <div class="container nav-inner">
+    <a class="brand about-brand" href="index.html">
+      <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio">
+    </a>
+    <div class="nav-links">
+      <div class="nav-dropdown">
+        <a href="solutions.html" class="nav-dropdown-toggle">Solutions <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="solutions.html#community">Community</a>
+          <a href="solutions.html#champion-programmes">Champion Programmes</a>
+          <a href="solutions.html#customer-led-content">Customer-led Content</a>
+          <a href="solutions.html#customer-education">Customer Education & Webinars</a>
+          <a href="solutions.html#user-groups-events">User Groups & Events</a>
+          <a href="solutions.html#customer-stories">Customer Stories & Case Studies</a>
+          <a href="solutions.html#lifecycle-email">Lifecycle Email Nurture Programmes</a>
+          <a href="solutions.html#win-back">Win-back & Re-engagement</a>
+          <a href="solutions.html#in-product-guides">In-Product Guides</a>
+        </div>
+      </div>
+      <a href="resources.html" class="is-current" aria-current="page">Resources</a>
+      <div class="nav-dropdown">
+        <a href="about.html" class="nav-dropdown-toggle">Company <span class="nav-caret" aria-hidden="true">▾</span></a>
+        <div class="nav-dropdown-menu nav-dropdown-menu-compact">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-end">
+      <a class="nav-cta" href="contact.html">Talk to us →</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="tool-hero">
+    <div class="container">
+      <p class="tool-eyebrow">RETAIN HEALTH CHECK</p>
+      <h1 class="tool-heading">Where is your post-sale motion actually weak?</h1>
+      <p class="tool-support">A six-pillar health check across Relationships, Engagement, Trust, Advocacy, Insights and Nurture — scored against your real answers, not a generic checklist.</p>
+      <p class="tool-repeat-note">Already used one of our tools before? You'll be offered a personal audit instead of a second automated report — one free report per person.</p>
+    </div>
+  </header>
+
+  <section class="tool-section">
+    <div class="container">
+      <div class="tool-panel">
+        <form id="retain-form" class="tool-form">
+
+          <div class="pillar-block">
+            <div class="pillar-title">Relationships</div>
+            <div class="pillar-q">
+              <label class="q-label">How well do you understand the key stakeholders, decision-makers, and champions within your customer accounts?</label>
+              <div class="tool-tiles" data-q="r1">
+                <label class="tile-option"><input type="radio" name="r1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="r1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="r1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="r1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="r1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">Are your relationships with key executives and economic buyers actively mapped and maintained?</label>
+              <div class="tool-tiles" data-q="r2">
+                <label class="tile-option"><input type="radio" name="r2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="r2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="r2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="r2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="r2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-block">
+            <div class="pillar-title">Engagement</div>
+            <div class="pillar-q">
+              <label class="q-label">How consistently do you provide customers with relevant opportunities to learn, engage, or get more value from your product?</label>
+              <div class="tool-tiles" data-q="e1">
+                <label class="tile-option"><input type="radio" name="e1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="e1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="e1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="e1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="e1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">Do you have a structured lifecycle engagement motion, from onboarding through renewal?</label>
+              <div class="tool-tiles" data-q="e2">
+                <label class="tile-option"><input type="radio" name="e2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="e2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="e2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="e2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="e2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-block">
+            <div class="pillar-title">Trust</div>
+            <div class="pillar-q">
+              <label class="q-label">Can your sales team easily find and use a customer reference when they need one?</label>
+              <div class="tool-tiles" data-q="t1">
+                <label class="tile-option"><input type="radio" name="t1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="t1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="t1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="t1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="t1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">How systematically do you measure customer sentiment, satisfaction, or confidence in your product?</label>
+              <div class="tool-tiles" data-q="t2">
+                <label class="tile-option"><input type="radio" name="t2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="t2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="t2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="t2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="t2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-block">
+            <div class="pillar-title">Advocacy</div>
+            <div class="pillar-q">
+              <label class="q-label">Do customers participate beyond just using the product and contacting support — referrals, reviews, speaking?</label>
+              <div class="tool-tiles" data-q="a1">
+                <label class="tile-option"><input type="radio" name="a1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="a1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="a1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="a1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="a1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">Do you have a formal programme for turning customers into advocates?</label>
+              <div class="tool-tiles" data-q="a2">
+                <label class="tile-option"><input type="radio" name="a2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="a2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="a2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="a2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="a2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-block">
+            <div class="pillar-title">Insights</div>
+            <div class="pillar-q">
+              <label class="q-label">Can you reliably spot at-risk or expansion-ready accounts from your data before it's too late?</label>
+              <div class="tool-tiles" data-q="i1">
+                <label class="tile-option"><input type="radio" name="i1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="i1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="i1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="i1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="i1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">Do you systematically track customer health signals — usage, sentiment, and engagement data?</label>
+              <div class="tool-tiles" data-q="i2">
+                <label class="tile-option"><input type="radio" name="i2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="i2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="i2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="i2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="i2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-block">
+            <div class="pillar-title">Nurture</div>
+            <div class="pillar-q">
+              <label class="q-label">Are customers getting relevant, lifecycle-stage-based communication — not generic blasts?</label>
+              <div class="tool-tiles" data-q="n1">
+                <label class="tile-option"><input type="radio" name="n1" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="n1" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="n1" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="n1" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="n1" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+            <div class="pillar-q">
+              <label class="q-label">Do you have active renewal and re-engagement motions in place for at-risk or lapsing accounts?</label>
+              <div class="tool-tiles" data-q="n2">
+                <label class="tile-option"><input type="radio" name="n2" value="1" checked><span class="tile-visual scale-tile-visual">1 · Not in place</span></label>
+                <label class="tile-option"><input type="radio" name="n2" value="2"><span class="tile-visual scale-tile-visual">2 · Ad hoc</span></label>
+                <label class="tile-option"><input type="radio" name="n2" value="3"><span class="tile-visual scale-tile-visual">3 · Developing</span></label>
+                <label class="tile-option"><input type="radio" name="n2" value="4"><span class="tile-visual scale-tile-visual">4 · Operational</span></label>
+                <label class="tile-option"><input type="radio" name="n2" value="5"><span class="tile-visual scale-tile-visual">5 · Strong</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-actions">
+            <button type="submit" class="tool-submit">Continue →</button>
+            <button type="button" class="tool-reset" id="tool-reset">Reset</button>
+          </div>
+        </form>
+
+        <div class="tool-result-col" id="tool-result">
+          <p class="tool-result-placeholder" id="tool-placeholder">Answer all 12 questions and click "Continue" to get your RETAIN Health score.</p>
+
+          <form class="tool-leadgate" id="tool-leadgate" hidden>
+            <p class="tool-leadgate-intro">Almost there — where should we send your Health Check results?</p>
+            <div class="tool-field"><label for="lead-email">Work email <span class="required">*</span></label><input type="email" id="lead-email" required></div>
+            <div class="tool-field"><label for="lead-phone">Phone (optional)</label><input type="tel" id="lead-phone"></div>
+            <button type="submit" class="tool-submit" id="send-otp-btn">Send verification code →</button>
+            <p class="tool-status" id="lead-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="tool-otp-form" hidden>
+            <p class="tool-leadgate-intro">Enter the 6-digit code we just emailed you</p>
+            <div class="tool-field"><label for="otp-code">Verification code</label><input type="text" id="otp-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required></div>
+            <button type="submit" class="tool-submit">Verify & Get My Health Check →</button>
+            <button type="button" class="tool-reset" id="resend-btn">Resend code</button>
+            <p class="tool-status" id="otp-status"></p>
+          </form>
+
+          <form class="tool-leadgate" id="already-lead-form" hidden>
+            <p class="tool-leadgate-intro" id="already-lead-message"></p>
+            <a href="contact.html" class="tool-submit tool-talk-link">Talk to us →</a>
+          </form>
+
+          <div class="tool-final" id="tool-final" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="assets/brand/retentio_logo_horizontal_600x200_transparent.png" alt="Retentio" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">Turn your happiest customers into your next growth channel.</p>
+        <a href="mailto:contact@retentio.in" class="footer-email">contact@retentio.in</a>
+      </div>
+      <div class="footer-col">
+        <h3>Resources</h3>
+        <a href="resources.html">All tools</a>
+        <a href="champion-scorecard.html">Champion Scorecard</a>
+        <a href="retain-health-check.html">RETAIN Health Check</a>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Retentio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/retain-health-check.js"></script>
+</body>
+</html>
